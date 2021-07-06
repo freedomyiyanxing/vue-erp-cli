@@ -113,10 +113,7 @@
     },
     methods: {
       generateTitle(item) {
-        return this.$router.$avueRouter.generateTitle(
-          item[this.labelKey],
-          (item.meta || {}).i18n
-        );
+        return item[this.labelKey];
       },
       vaildAvtive(item) {
         const groupFlag = (item["group"] || []).some(ele =>
@@ -132,7 +129,7 @@
         return validateNull(val);
       },
       open(item) {
-        console.log('item====', item)
+        console.log('item====', item, this.screen)
         if (this.screen <= 1) {
           this.$store.commit("SET_COLLAPSE");
         }
@@ -145,13 +142,10 @@
         });
         console.log(path);
 
-        // this.$router.push({
-        //   path: this.$router.$avueRouter.getPath({
-        //     name: item[this.labelKey],
-        //     src: item[this.pathKey],
-        //   }),
-        //   query: item.query
-        // });
+        this.$router.push({
+          path,
+          query: item.query
+        });
       }
     }
   };

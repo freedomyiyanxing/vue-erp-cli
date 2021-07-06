@@ -29,7 +29,8 @@ module.exports = {
     // 反向代理配置
     proxy: {
       '/api': {
-        target: "http://wms-api.bomman.com",
+        // target: "http://wms-api.bomman.com",
+        target: "http://192.168.1.254:9000",
         ws: true,
         pathRewrite: {
           '^/api': '/'

@@ -1,6 +1,5 @@
 <template>
-  <div class="avue-tags"
-       v-if="showTag">
+  <div class="avue-tags">
     <!-- tag盒子 -->
     <div v-if="contextmenuFlag" class="avue-tags__contentmenu" :style="{left:contentmenuX+'px',top:contentmenuY+'px'}">
       <div class="item" @click="closeOthersTags">关闭其它</div>
@@ -21,7 +20,7 @@
         <el-tab-pane
           :key="item.value"
           v-for="item in tagList"
-          :label="generateTitle(item)"
+          :label="item.label"
           :name="item.value"
         />
 
@@ -40,7 +39,7 @@
   </div>
 </template>
 <script>
-  import { mapGetters, mapState } from "vuex";
+  import { mapGetters } from "vuex";
 
   export default {
     name: "tags",
@@ -67,20 +66,14 @@
     },
     computed: {
       ...mapGetters(["tagWel", "tagList", "tag", "config"]),
-      ...mapState({
-        showTag: state => state.common.showTag
-      }),
+      // ...mapState({
+      // showTag: state => state.common.showTag
+      // }),
       tagLen() {
         return this.tagList.length || 0;
       }
     },
     methods: {
-      generateTitle(item) {
-        return this.$router.$avueRouter.generateTitle(
-          item.label,
-          (item.meta || {}).i18n
-        );
-      },
       watchContextmenu(event) {
         if (!this.$el.contains(event.target) || event.button !== 0) {
           this.contextmenuFlag = false;

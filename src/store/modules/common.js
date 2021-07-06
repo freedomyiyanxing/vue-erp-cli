@@ -13,7 +13,7 @@ const common = {
     isShade: false,
     screen: -1,
     isLock: getStore({ name: 'isLock' }) || false,
-    showTag: true,
+    // showTag: true,
     showDebug: true,
     showCollapse: true,
     showSearch: true,

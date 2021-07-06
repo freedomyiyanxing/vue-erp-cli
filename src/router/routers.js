@@ -19,7 +19,6 @@ RouterPlugin.install = function (Vue, router, store) {
     return result.join('&');
   }
 
-  console.log(this.$store);
   this.$router.$avueRouter = {
     //全局配置
     $config: this.$store.getters.config,
@@ -38,7 +37,6 @@ RouterPlugin.install = function (Vue, router, store) {
       }
       this.$store.commit('DEL_TAG', tag)
     },
-    generateTitle: (title) => title,
 
     //处理路由
     getPath: function (params) {
@@ -57,7 +55,6 @@ RouterPlugin.install = function (Vue, router, store) {
         if (new RegExp("^" + ele + ".*", "g").test(path)) {
           result = true
         }
-
       })
       return result;
     },
@@ -86,7 +83,7 @@ RouterPlugin.install = function (Vue, router, store) {
 
       for (let i = 0; i < menu.length; i++) {
         const oMenu = menu[i];
-        console.log(oMenu.name + ':------------' + oMenu.path);
+        // console.log(oMenu.name + ':------------' + oMenu.path);
         //
         if (this.routerList.includes(oMenu[propsDefault.path])) {
           return;
@@ -106,13 +103,15 @@ RouterPlugin.install = function (Vue, router, store) {
           children = oMenu[propsDefault.children],
           meta = oMenu[propsDefault.meta] || {};
 
+        // console.log('-->', path);
+
         const isChild = children.length !== 0;
         const oRouter = {
           path: path,
           component(resolve) {
             // 判断是否为首路由
             if (first) {
-              console.log(name);
+              // console.log(name);
               require(['../page/index'], resolve)
               return
             }
@@ -149,21 +148,22 @@ RouterPlugin.install = function (Vue, router, store) {
             }
             return [];
           })() : (() => {
-            console.log('执行了么');
+            // console.log('执行了么');
             return this.formatRoutes(children, false)
           })()
         }
+        // console.log(oRouter);
         SHTRouter.push(oRouter)
       }
 
       if (first) {
         if (!this.routerList.includes(SHTRouter[0][propsDefault.path])) {
-          console.log(SHTRouter, '&&&&&&&')
+          // console.log(SHTRouter, '&&&&&&&')
           SHTRouter.forEach(i => this.safe.$router.addRoute(i))
           this.routerList.push(SHTRouter[0][propsDefault.path])
         }
       } else {
-        console.log(SHTRouter, '*************');
+        // console.log(SHTRouter, '*************');
         return SHTRouter
       }
     }

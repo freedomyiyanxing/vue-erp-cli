@@ -1,6 +1,8 @@
 import Cookies from 'js-cookie'
+
 const TokenKey = 'x-access-token'
 const inFifteenMinutes = new Date(new Date().getTime() + 120 * 60 * 1000);
+
 export function getToken() {
   return Cookies.get(TokenKey)
 }

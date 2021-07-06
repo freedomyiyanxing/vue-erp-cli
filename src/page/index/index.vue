@@ -1,5 +1,12 @@
+<!--
+ * @Description:
+ * @author Freedom.yi
+ * @date
+ *
+-->
+
 <template>
-  <div class="avue-contail">
+  <div>
     <div class="avue-header">
       <!-- 顶部标签卡 -->
       <tags />
@@ -20,7 +27,6 @@
           </keep-alive>
           <router-view class="avue-view" v-if="!$route.meta.keepAlive" />
         </el-scrollbar>
-
       </div>
     </div>
     <div class="avue-shade" @click="showCollapse" />
