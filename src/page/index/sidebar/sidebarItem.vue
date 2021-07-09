@@ -3,50 +3,44 @@
     <template v-for="item in menu">
       <!-- 没有子级路由 -->
       <el-menu-item
-        v-if="validatenull(item[childrenKey]) && vaildRoles(item)"
+        v-if="validateNull(item[childrenKey]) && validateRoles(item)"
         :index="item[pathKey]"
         @click="open(item)"
         :key="item[labelKey]"
-        :class="{'is-active':vaildAvtive(item)}"
+        :class="{'is-active':validateActive(item)}"
       >
         <i :class="item[iconKey]"></i>
-        <span
-          slot="title"
-          :alt="item[pathKey]"
-        >
+        <span slot="title" :alt="item[pathKey]">
           {{generateTitle(item)}}
         </span>
       </el-menu-item>
 
       <el-submenu
-        v-else-if="!validatenull(item[childrenKey]) && vaildRoles(item)"
+        v-else-if="!validateNull(item[childrenKey]) && validateRoles(item)"
         :index="item[pathKey]"
         :key="item[labelKey]"
       >
         <template slot="title">
           <i :class="item[iconKey]"></i>
-          <span
-            slot="title"
-            :class="{'el-menu--display':collapse && first}"
-          >
-            {{generateTitle(item)}}
+          <span slot="title" :class="{'el-menu--display':collapse && first}">
+           {{generateTitle(item)}}
           </span>
         </template>
-        <template v-for="(child,cindex) in item[childrenKey]">
+        <template v-for="(child,cIndex) in item[childrenKey]">
           <el-menu-item
-            :index="child[pathKey]"
+            v-if="validateNull(child[childrenKey])"
             @click="open(child)"
-            :class="{'is-active':vaildAvtive(child)}"
-            v-if="validatenull(child[childrenKey])"
+            :index="child[pathKey]"
+            :class="{'is-active':validateActive(child)}"
             :key="child[labelKey]"
           >
             <i :class="child[iconKey]"></i>
-            <span slot="title">{{generateTitle(child)}}</span>
+            <span slot="title">  34--{{generateTitle(child)}}</span>
           </el-menu-item>
           <sidebar-item
             v-else
             :menu="[child]"
-            :key="cindex"
+            :key="cIndex"
             :props="props"
             :screen="screen"
             :collapse="collapse"
@@ -58,7 +52,7 @@
 </template>
 <script>
   import { mapGetters } from "vuex";
-  import { validateNull } from "@/util";
+  import { validateNull } from "@/util/validate";
   import config from "./config.js";
 
   export default {
@@ -89,10 +83,6 @@
         type: Boolean
       }
     },
-    created() {
-    },
-    mounted() {
-    },
     computed: {
       ...mapGetters(["roles"]),
       labelKey() {
@@ -108,24 +98,24 @@
         return this.props.children || this.config.propsDefault.children;
       },
       nowTagValue() {
-        return this.$router.$avueRouter.getValue(this.$route);
+        return this.$router.$shtRouter.getValue(this.$route);
       }
     },
     methods: {
       generateTitle(item) {
         return item[this.labelKey];
       },
-      vaildAvtive(item) {
+      validateActive(item) {
         const groupFlag = (item["group"] || []).some(ele =>
           this.$route.path.includes(ele)
         );
         return this.nowTagValue === item[this.pathKey] || groupFlag;
       },
-      vaildRoles(item) {
+      validateRoles(item) {
         item.meta = item.meta || {};
         return item.meta.roles ? item.meta.roles.includes(this.roles) : true;
       },
-      validatenull(val) {
+      validateNull(val) {
         return validateNull(val);
       },
       open(item) {
@@ -133,14 +123,13 @@
         if (this.screen <= 1) {
           this.$store.commit("SET_COLLAPSE");
         }
-        this.$router.$avueRouter.group = item.group;
-        this.$router.$avueRouter.meta = item.meta;
+        this.$router.$shtRouter.group = item.group;
+        this.$router.$shtRouter.meta = item.meta;
 
-        const path = this.$router.$avueRouter.getPath({
+        const path = this.$router.$shtRouter.getPath({
           name: item[this.labelKey],
           src: item[this.pathKey],
         });
-        console.log(path);
 
         this.$router.push({
           path,

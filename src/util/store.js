@@ -1,5 +1,5 @@
-import { validateNull } from '@/util/index';
-import config from '@/config/index'
+import { validateNull } from '@/util/validate';
+import config from '@/config/index';
 
 const keyName = config.key + '-';
 /**
@@ -31,9 +31,9 @@ export const getStore = (params = {}) => {
     debug
   } = params;
   name = keyName + name
-  let obj = {},
-    content;
-  obj = window.sessionStorage.getItem(name);
+  let obj = window.sessionStorage.getItem(name);
+  let content;
+
   if (validateNull(obj)) obj = window.localStorage.getItem(name);
   if (validateNull(obj)) return;
   try {

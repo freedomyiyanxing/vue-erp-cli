@@ -1,6 +1,7 @@
 import { setToken, removeToken } from '@/util/auth';
 import { setStore, getStore } from '@/util/store';
-import { isURL, validateNull, deepClone } from '@/util';
+import { deepClone } from "@/util";
+import { isURL, validateNull } from '@/util/validate';
 import config from '@/config';
 import { loginByUsername, getUserInfo, getMenu, getTopMenu, logout, refeshToken, getButtons } from '@/api/user';
 

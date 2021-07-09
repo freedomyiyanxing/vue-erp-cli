@@ -11,9 +11,9 @@ import BasicContainer from '@/components/basic-container';
 import Pagination from "@/components/pagination";
 import SearchForm from "@/components/search-form";
 import Empty from "@/components/empty/index";
-import '@/assets/styles/common.scss';
 import 'element-ui/lib/theme-chalk/index.css';
 import 'nprogress/nprogress.css';
+import '@/assets/styles/common.scss';
 
 Vue.config.productionTip = false;
 

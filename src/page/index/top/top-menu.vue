@@ -41,7 +41,7 @@
 <!--        });-->
 <!--      },-->
 <!--      generateTitle(item) {-->
-<!--        return this.$router.$avueRouter.generateTitle(-->
+<!--        return this.$router.$shtRouter.generateTitle(-->
 <!--          item.label,-->
 <!--          (item.meta || {}).i18n-->
 <!--        );-->
@@ -49,7 +49,7 @@
 <!--      openMenu(item) {-->
 <!--        this.$store.dispatch("GetMenu", item.parentId).then(data => {-->
 <!--          if (data.length !== 0) {-->
-<!--            this.$router.$avueRouter.formatRoutes(data, true);-->
+<!--            this.$router.$shtRouter.formatRoutes(data, true);-->
 <!--          }-->
 <!--          let itemActive,-->
 <!--            childItemActive = 0;-->
@@ -63,7 +63,7 @@
 <!--            }-->
 <!--          }-->
 <!--          this.$router.push({-->
-<!--            path: this.$router.$avueRouter.getPath({-->
+<!--            path: this.$router.$shtRouter.getPath({-->
 <!--              name: itemActive.label,-->
 <!--              src: itemActive.path,-->
 <!--              i18n: itemActive.meta.i18n-->

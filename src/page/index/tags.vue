@@ -120,7 +120,7 @@
           tag = item;
         }
         this.$router.push({
-          path: this.$router.$avueRouter.getPath({
+          path: this.$router.$shtRouter.getPath({
             name: tag.label,
             src: tag.value,
             i18n: tag.meta.i18n
@@ -146,7 +146,7 @@
         this.contextmenuFlag = false;
         this.$store.commit("DEL_ALL_TAG");
         this.$router.push({
-          path: this.$router.$avueRouter.getPath({
+          path: this.$router.$shtRouter.getPath({
             src: this.tagWel.value
           }),
           query: this.tagWel.query

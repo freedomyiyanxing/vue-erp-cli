@@ -4,7 +4,6 @@
  * @date
  *
 -->
-
 <template>
   <div>
     <div class="avue-header">
@@ -21,15 +20,13 @@
       </div>
       <div class="avue-main">
         <!-- 主体视图层 -->
-        <el-scrollbar style="height:100%">
-          <keep-alive>
-            <router-view class="avue-view" v-if="$route.meta.keepAlive" />
-          </keep-alive>
-          <router-view class="avue-view" v-if="!$route.meta.keepAlive" />
-        </el-scrollbar>
+        <keep-alive>
+          <router-view class="avue-view" />
+        </keep-alive>
+        <!-- <router-view class="avue-view" v-if="!$route.meta.keepAlive" />-->
       </div>
     </div>
-    <div class="avue-shade" @click="showCollapse" />
+    <!-- <div class="avue-shade" @click="showCollapse">哈哈哈</div>-->
   </div>
 </template>
 
@@ -45,10 +42,10 @@
       sidebar
     },
     name: "index",
-    methods: {
-      showCollapse() {
-        this.$store.commit("SET_COLLAPSE");
-      },
-    }
+    // methods: {
+    // showCollapse() {
+    //   this.$store.commit("SET_COLLAPSE");
+    // },
+    // }
   };
 </script>

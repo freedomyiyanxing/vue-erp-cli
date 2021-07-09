@@ -8,15 +8,21 @@
  */
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import store from '@/store/';
 import PageRouter from './page/';
 import SHTRouter from './routers';
-import store from '../store/';
-import { mockRouters } from "@/router/test-routers";
+import { mockRouters } from "./test-routers";
+
+const originalPush = VueRouter.prototype.push
+
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err);
+}
 
 let Router = new VueRouter({
   routes: PageRouter,
 });
 
 SHTRouter.install(Vue, Router, store);
-Router.$avueRouter.formatRoutes(mockRouters, true);
+Router.$shtRouter.formatRoutes(mockRouters, true);
 export default Router;

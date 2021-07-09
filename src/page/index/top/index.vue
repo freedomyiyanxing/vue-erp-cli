@@ -1,15 +1,16 @@
 <template>
   <div class="avue-top">
 
-    <div class="top-bar__left">
-      <div
-        v-if="showCollapse"
-        class="avue-breadcrumb"
-        :class="[{ 'avue-breadcrumb--active': isCollapse }]"
-      >
-        <i class="icon-navicon" @click="setCollapse" />
-      </div>
-    </div>
+    <!--    <div class="top-bar__left">-->
+    <!--      <div-->
+    <!--        v-if="showCollapse"-->
+    <!--        class="avue-breadcrumb"-->
+    <!--        :class="[{ 'avue-breadcrumb&#45;&#45;active': isCollapse }]"-->
+    <!--      >-->
+    <!--        <i class="icon-navicon" @click="setCollapse" />-->
+    <!--      </div>-->
+    <!--    </div>-->
+
     <div class="top-bar__right">
       <el-tooltip
         effect="dark"
@@ -22,7 +23,7 @@
         </div>
       </el-tooltip>
 
-      <img class="top-bar__img" :src="userInfo.avatar" />
+      <img class="top-bar__img" :src="userInfo.avatar" alt="avatar" />
 
       <el-dropdown>
         <span class="el-dropdown-link">

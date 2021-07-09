@@ -27,7 +27,7 @@ router.beforeEach((to, from, next) => {
   })) {
     to.meta.$keepAlive = true;
   } else {
-    NProgress.start()
+    // NProgress.start()
 
     to.meta.$keepAlive = !!(to.meta.keepAlive === true && validateNull(to.meta.$keepAlive));
   }
@@ -47,7 +47,7 @@ router.beforeEach((to, from, next) => {
       } else {
         const value = to.query.src || to.fullPath;
         const label = to.query.name || to.name;
-        const meta = to.meta || router.$avueRouter.meta || {};
+        const meta = to.meta || router.$shtRouter.meta || {};
         const i18n = to.query.i18n;
         if (meta.isTab !== false && !validateNull(value) && !validateNull(label)) {
           store.commit('ADD_TAG', {
@@ -63,7 +63,7 @@ router.beforeEach((to, from, next) => {
                 i18n: i18n
               }
             })(),
-            group: router.$avueRouter.group || []
+            group: router.$shtRouter.group || []
           });
         }
         next()
@@ -80,10 +80,11 @@ router.beforeEach((to, from, next) => {
 });
 
 router.afterEach(() => {
-  NProgress.done();
+  console.log('路由，，， router');
+  // NProgress.done();
   // let title = store.getters.tag.label;
   // let i18n = store.getters.tag.meta.i18n;
-  // title = router.$avueRouter.generateTitle(title, i18n)
+  // title = router.$shtRouter.generateTitle(title, i18n)
   //根据当前的标签也获取label的值动态设置浏览器标题
-  // router.$avueRouter.setTitle(title);
+  // router.$shtRouter.setTitle(title);
 });

@@ -1,3 +1,5 @@
+import { validateNull } from './validate';
+
 //表单序列化
 export const serialize = data => {
   let list = [];
@@ -28,19 +30,19 @@ export const getObjType = obj => {
 /**
  * 对象深拷贝
  */
-export const deepClone = data => {
-  var type = getObjType(data);
-  var obj;
+export const deepClone = (data) => {
+  const type = getObjType(data);
+  let obj;
   if (type === 'array') {
     obj = [];
   } else if (type === 'object') {
-    obj = {};
+    obj = Object.create(null);
   } else {
     //不再具有下一层次
     return data;
   }
   if (type === 'array') {
-    for (var i = 0, len = data.length; i < len; i++) {
+    for (let i = 0, len = data.length; i < len; i++) {
       obj.push(deepClone(data[i]));
     }
   } else if (type === 'object') {
@@ -256,22 +258,6 @@ export const openWindow = (url, title, w, h) => {
   if (window.focus) {
     newWindow.focus()
   }
-}
-
-export function validateNull(val) {
-  if (typeof val == 'boolean') {
-    return false;
-  }
-  if (typeof val == 'number') {
-    return false;
-  }
-  if (val instanceof Array) {
-    return val.length === 0;
-  }
-  if (val instanceof Object) {
-    return JSON.stringify(val) === '{}';
-  }
-  return val === 'null' || val == null || val === 'undefined' || val === '';
 }
 
 /**

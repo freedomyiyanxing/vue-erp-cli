@@ -1,69 +1,81 @@
 /**
- * Created by jiachenpan on 16/11/18.
+ * @Description: 校验
+ * @author Freedom.yi
+ * @date 2021/7/8
+ *
  */
+import { uri, url, name, email, phone, landline } from './regexp-pattern';
 
 export function isValidUsername(str) {
   const valid_map = ['admin', 'editor']
   return valid_map.indexOf(str.trim()) >= 0
 }
 
-/* 合法uri*/
-export function validateURL(textVal) {
-  const urlRegex = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/
-  return urlRegex.test(textVal)
-}
+/**
+ * 合法uri
+ * @param textVal
+ * @return {boolean}
+ */
+export const validateURL = (textVal) => uri.test(textVal);
 
 /**
  * 邮箱
  * @param {*} s
  */
-export function isEmail(s) {
-  return /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((.[a-zA-Z0-9_-]{2,3}){1,2})$/.test(s)
-}
+export const isEmail = (s) => email.test(s);
 
 /**
  * 手机号码
  * @param {*} s
  */
-export function isMobile(s) {
-  return /^1[0-9]{10}$/.test(s)
-}
+export const isPhone = (s) => phone.test(s);
 
 /**
- * 电话号码
+ * 座机电话号码
  * @param {*} s
  */
-export function isPhone(s) {
-  return /^([0-9]{3,4}-)?[0-9]{7,8}$/.test(s)
-}
+export const isLandline = (s) => landline.test(s)
 
 /**
  * URL地址
  * @param {*} s
  */
-export function isURL(s) {
-  return /^http[s]?:\/\/.*/.test(s)
-}
+export const isURL = (s) => url.test(s);
 
-/* 小写字母*/
+/**
+ * 小写字母
+ * @param str
+ * @return {boolean}
+ */
 export function validateLowerCase(str) {
   const reg = /^[a-z]+$/
   return reg.test(str)
 }
 
-/* 大写字母*/
+/**
+ * 大写字母
+ * @param str
+ * @return {boolean}
+ */
 export function validateUpperCase(str) {
   const reg = /^[A-Z]+$/
   return reg.test(str)
 }
 
-/* 大小写字母*/
+/**
+ * 大小写字母
+ * @param str
+ * @return {boolean}
+ */
 export function validateAlphabets(str) {
   const reg = /^[A-Za-z]+$/
   return reg.test(str)
 }
 
-/*验证pad还是pc*/
+/**
+ * 验证pad还是pc
+ * @return {boolean}
+ */
 export const validatePc = function () {
   const userAgentInfo = navigator.userAgent;
   const Agents = ["Android", "iPhone",
@@ -176,43 +188,17 @@ export function cardId(code) {
 }
 
 /**
- * 判断手机号码是否正确
- */
-export function isValidateMobile(phone) {
-  let list = [];
-  let result = true;
-  let msg = '';
-  const isPhone = /^0\d{2,3}-?\d{7,8}$/;
-  //增加134 减少|1349[0-9]{7}，增加181,增加145，增加17[678]
-  if (!validateNull(phone)) {
-    if (phone.length === 11) {
-      if (isPhone.test(phone)) {
-        msg = '手机号码格式不正确';
-      } else {
-        result = false;
-      }
-    } else {
-      msg = '手机号码长度不为11位';
-    }
-  } else {
-    msg = '手机号码不能为空';
-  }
-  list.push(result);
-  list.push(msg);
-  return list;
-}
-
-/**
  * 判断姓名是否正确
+ * @param val
+ * @return {boolean}
  */
-export function validateName(name) {
-  const regName = /^[\u4e00-\u9fa5]{2,4}$/;
-  return regName.test(name);
-
-}
+export const validateName = (val) => name.test(val);
 
 /**
  * 判断是否为整数
+ * @param num
+ * @param type
+ * @return {boolean}
  */
 export function validateNum(num, type) {
   let regName = /[^\d.]/g;
@@ -227,6 +213,9 @@ export function validateNum(num, type) {
 
 /**
  * 判断是否为小数
+ * @param num
+ * @param type
+ * @return {boolean}
  */
 export function validateNumOrd(num, type) {
   let regName = /[^\d.]/g;
@@ -241,6 +230,8 @@ export function validateNumOrd(num, type) {
 
 /**
  * 判断是否为空
+ * @param val
+ * @return {boolean}
  */
 export function validateNull(val) {
   if (typeof val == 'boolean') {
@@ -250,12 +241,20 @@ export function validateNull(val) {
     return false;
   }
   if (val instanceof Array) {
-    if (val.length === 0) return true;
-  } else if (val instanceof Object) {
-    if (JSON.stringify(val) === '{}') return true;
-  } else {
-    return val === 'null' || val == null || val === 'undefined' || val === undefined || val === '';
-
+    return val.length === 0;
   }
-  return false;
+  if (val instanceof Object) {
+    return JSON.stringify(val) === '{}';
+  }
+  return val === 'null' || val == null || val === 'undefined' || val === '';
 }
+
+/**
+ * 验证是否存在true/false
+ */
+export const validateData = (val, shtDefault) => {
+  if (typeof val === 'boolean') {
+    return val;
+  }
+  return !validateNull(val) ? val : shtDefault;
+};

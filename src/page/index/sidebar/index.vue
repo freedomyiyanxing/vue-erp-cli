@@ -1,19 +1,18 @@
 <template>
   <div class="avue-sidebar">
-    <logo />
+    <Logo />
     <el-scrollbar style="height:100%">
-      <!--      <div class="avue-sidebar&#45;&#45;tip">没有发现菜单</div>-->
       <el-menu
         unique-opened
-        :default-active="nowTagValue"
         mode="vertical"
         :show-timeout="200"
         :collapse="keyCollapse"
+        :default-active="nowTagValue"
       >
         <sidebar-item
           first
-          :menu="mockRouters"
           :screen="screen"
+          :menu="mockRouters"
           :props="config.menu.props"
           :collapse="keyCollapse"
         />
@@ -25,34 +24,28 @@
 <script>
   import { mapGetters } from "vuex";
   import { mockRouters } from "@/router/test-routers";
-  import logo from "../logo";
-  import sidebarItem from "./sidebarItem";
+  import Logo from "../logo";
+  import SidebarItem from "./sidebarItem";
 
   export default {
     name: "sidebar",
-    components: { sidebarItem, logo },
+    components: { SidebarItem, Logo },
     data() {
       return {
         mockRouters,
       };
     },
     created() {
-      this.$store.dispatch("GetMenu").then(data => {
-        if (data.length === 0) {
-          return
-        }
-        this.$router.$avueRouter.formatRoutes(mockRouters, true);
-      });
+      // this.$store.dispatch("GetMenu").then(data => {
+      //   this.$router.$shtRouter.formatRoutes(data, true);
+      // });
     },
     computed: {
-      ...mapGetters(['config', 'menu', 'tag', 'keyCollapse', 'screen']),
+      ...mapGetters(['config', 'menu', 'keyCollapse', 'screen']),
       nowTagValue: function () {
-        console.log(',,,,', this.$router.$avueRouter.getValue(this.$route));
-        return this.$router.$avueRouter.getValue(this.$route);
+        return this.$router.$shtRouter.getValue(this.$route);
       }
     },
   };
 </script>
-<style lang="scss" scoped>
-</style>
 
