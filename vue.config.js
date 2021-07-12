@@ -1,6 +1,6 @@
 module.exports = {
-  lintOnSave: true,
-  productionSourceMap: false,
+  lintOnSave: 'default',
+  productionSourceMap: true,
   chainWebpack: () => {
     // config.resolve.alias.set('~', '/src/assets/styles');
     //忽略的打包文件 在index.html中使用cnd
@@ -36,7 +36,7 @@ module.exports = {
           '^/api': '/'
         }
       }
-    }
+    },
     // proxy: {
     //   '/api': {
     //     target: 'http://192.168.2.248:9000',
@@ -45,6 +45,10 @@ module.exports = {
     //       '^/api': '/'
     //     }
     //   }
-    // }
+    // },
+    overlay: {
+      warnings: true,
+      errors: true
+    }
   }
 }

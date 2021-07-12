@@ -27,7 +27,6 @@
     data() {
       return {
         time: "",
-        activeName: "user"
       };
     },
     created() {
@@ -47,6 +46,6 @@
   };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
   @import "~@/assets/styles/login.scss";
 </style>

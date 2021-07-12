@@ -69,108 +69,108 @@
 </template>
 
 <script>
-  import { add, getMenu } from "@/api/system/menu";
+import { add, getMenu } from "@/api/system/menu";
 
-  export default {
-    components: {
-      Tree: () => import("./menuTree"),
-      iconList: () => import("./iconList")
-    },
-    name: "add",
-    data() {
-      return {
-        dialogVisible: false,
-        form: {
-          sort: 0,
-          action: 0,
-          alias: "菜单别名",
-          category: 1,
-          code: "编号",
-          isOpen: 0,
-          name: "菜单名称",
-          parentId: "",
-          path: "路由地址",
-          remark: "",
-          source: "iconfont iconicon_task_done",
-          id: null
-        },
-        rules: {
-          sort: [{ message: "*必填项", required: true, trigger: ["change", "blur"] }, {
-            type: "number",
-            message: "排序必须为数字值"
-          }],
-          name: [{ message: "*必填项", required: true, trigger: ["change", "blur"] }],
-          path: [{ message: "*必填项", required: true, trigger: ["change", "blur"] }],
-          source: [{ message: "*必填项", required: true, trigger: ["change", "blur"] }],
-          category: [{ message: "*必填项", required: true, trigger: ["change", "blur"] }],
-          alias: [{ message: "*必填项", required: true, trigger: ["change", "blur"] }],
-          action: [{ message: "*必填项", required: true, trigger: ["change", "blur"] }],
-          code: [{ message: "*必填项", required: true, trigger: ["change", "blur"] }]
-        },
-        title: "",
-        icon: "",
-        parentName: ""
-      };
-    },
-    created() {
+export default {
+  name: 'MenuAdd',
+  components: {
+    Tree: () => import("./menuTree"),
+    iconList: () => import("./iconList")
+  },
+  data() {
+    return {
+      dialogVisible: false,
+      form: {
+        sort: 0,
+        action: 0,
+        alias: "菜单别名",
+        category: 1,
+        code: "编号",
+        isOpen: 0,
+        name: "菜单名称",
+        parentId: "",
+        path: "路由地址",
+        remark: "",
+        source: "iconfont iconicon_task_done",
+        id: null
+      },
+      rules: {
+        sort: [{ message: "*必填项", required: true, trigger: ["change", "blur"] }, {
+          type: "number",
+          message: "排序必须为数字值"
+        }],
+        name: [{ message: "*必填项", required: true, trigger: ["change", "blur"] }],
+        path: [{ message: "*必填项", required: true, trigger: ["change", "blur"] }],
+        source: [{ message: "*必填项", required: true, trigger: ["change", "blur"] }],
+        category: [{ message: "*必填项", required: true, trigger: ["change", "blur"] }],
+        alias: [{ message: "*必填项", required: true, trigger: ["change", "blur"] }],
+        action: [{ message: "*必填项", required: true, trigger: ["change", "blur"] }],
+        code: [{ message: "*必填项", required: true, trigger: ["change", "blur"] }]
+      },
+      title: "",
+      icon: "",
+      parentName: "",
+    };
+  },
+  created() {
 
+  },
+  methods: {
+    getInfo(id) {
+      this.title = "编辑菜单";
+      this.dialogVisible = true;
+      getMenu(id).then(res => {
+        this.form = res.data.data;
+        this.parentName = res.data.data.parentName;
+        this.icon = res.data.data.source;
+      });
     },
-    methods: {
-      getInfo(id) {
-        this.title = "编辑菜单";
-        this.dialogVisible = true;
-        getMenu(id).then(res => {
-          this.form = res.data.data;
-          this.parentName = res.data.data.parentName;
-          this.icon = res.data.data.source;
-        });
-      },
-      handleOpen() {
-        this.title = "新增菜单";
-        this.dialogVisible = true;
-        Object.keys(this.form).forEach(key => {
-          this.form[key] = null;
-        });
-        this.parentName = "";
-        this.icon = "";
-      },
-      superior() {
-        this.$refs["tree"].handleOpen();
-      },
-      iconClick() {
-        this.$refs["iconList"].handleOpen();
-      },
-      sendData(data) {
-        this.parentName = data.title;
-        this.form.parentId = data.key;
-      },
-      sendIcon(data) {
-        this.icon = data;
-        this.form.source = data;
-      },
-      sure() {
-        this.$refs["form"].validate(valid => {
-          if (valid) {
-            add(this.form).then(() => {
-              this.$message({
-                type: "success",
-                message: "操作成功!"
-              });
-              this.dialogVisible = false;
-              this.$emit("update");
+    handleOpen() {
+      this.title = "新增菜单";
+      this.dialogVisible = true;
+      Object.keys(this.form).forEach(key => {
+        this.form[key] = null;
+      });
+      this.parentName = "";
+      this.icon = "";
+    },
+    superior() {
+      this.$refs["tree"].handleOpen();
+    },
+    iconClick() {
+      this.$refs["iconList"].handleOpen();
+    },
+    sendData(data) {
+      this.parentName = data.title;
+      this.form.parentId = data.key;
+    },
+    sendIcon(data) {
+      this.icon = data;
+      this.form.source = data;
+    },
+    sure() {
+      this.$refs["form"].validate(valid => {
+        if (valid) {
+          add(this.form).then(() => {
+            this.$message({
+              type: "success",
+              message: "操作成功!"
             });
-          } else {
-            return false;
-          }
-        });
-      }
-
+            this.dialogVisible = false;
+            this.$emit("update");
+          });
+        } else {
+          return false;
+        }
+      });
     }
-  };
+
+  }
+};
 </script>
 
 <style lang='scss' scoped>
-  .w50 {
-    width: 50px;
-  }
+.w50 {
+  width: 50px;
+}
 </style>
