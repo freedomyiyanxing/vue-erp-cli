@@ -1,48 +1,48 @@
 # sht 前端编码规范
 ## 命名规范
  ```
- 文件命名 一律使用 小写、多单词、使用 - 分割            ( max-count.vue )
- 变量命名 一律使用 小驼峰、多单词、以描述性的修饰词结尾   ( maxCount )
- 常量命名 一律使用 全大写、多单词、使用_分割            ( MAX_COUNT )
- 组件命名 一律使用 大驼峰、多单词、以描述性的修饰词结尾   ( MaxCount )
- css 命名规范 一律使用 小写、多单词、使用 - 分割       ( .max-count {} )
+文件命名 一律使用 小写、多单词、使用 - 分割            ( max-count.vue )
+变量命名 一律使用 小驼峰、多单词、以描述性的修饰词结尾   ( maxCount )
+常量命名 一律使用 全大写、多单词、使用_分割            ( MAX_COUNT )
+组件命名 一律使用 大驼峰、多单词、以描述性的修饰词结尾   ( MaxCount )
+css 命名规范 一律使用 小写、多单词、使用 - 分割       ( .max-count {} )
 
- method 方法命名命名规范
-   1、尽量使用常用单词开头（set、get、go、cancel、has、is）
-    // bad
-      go、nextPage、show、open、login 
-    // good
-      jumpPage、openCarInfoDialog、handleOpenClick、handleEditChange
+method 方法命名命名规范
+1、尽量使用常用单词开头（set、get、go、cancel、has、is）
+// bad
+  go、nextPage、show、open、login 
+// good
+  jumpPage、openCarInfoDialog、handleOpenClick、handleEditChange
 
- 请求数据命名规范
-    1、以请求数据方法开头以data结尾
-    getListData、postFormData、deleteItemData
+请求数据命名规范
+1、以请求数据方法开头以data结尾
+getListData、postFormData、deleteItemData
 
- props 命名规范  (严禁使用 attr)
-   1、在声明 prop 的时候，其命名应该始终使用小驼峰，而在模板中应该始终使用 kebab-case
+props 命名规范  (严禁使用 attr)
+1、在声明 prop 的时候，其命名应该始终使用小驼峰，而在模板中应该始终使用 kebab-case
 
-   // bad
-    <script>
-    props: {
-      'greeting-text': String
-    }
-    </script>
-   
-    <welcome-message greetingText="hi"></welcome-message>
-    
-    // good
-    <script>
-    props: {
-      greetingText: String
-    }
-    </script>
-    
-    <welcome-message greeting-text="hi" />
+// bad
+<script>
+props: {
+  'greeting-text': String
+}
+</script>
+
+<welcome-message greetingText="hi"></welcome-message>
+
+// good
+<script>
+props: {
+  greetingText: String
+}
+</script>
+
+<welcome-message greeting-text="hi" />
 
 
- 例外情况
- 1、作用域不大临时变量可以简写，比如：str，num，bol，obj，fun，arr。
- 2、循环变量可以简写，比如：i，j，k 等。
+例外情况
+1、作用域不大临时变量可以简写，比如：str，num，bol，obj，fun，arr。
+2、循环变量可以简写，比如：i，j，k 等。
 ```
 
 ## 结构化规范
@@ -170,14 +170,14 @@ async del(id) {
 1. 定义变量使用 let ,定义常量使用 const
 2. 静态字符串一律使用单引号，动态字符串使用反引号
     ```
-      // bad
-      const a = 'foobar'
-      const b = 'foo' + a + 'bar'
+    // bad
+    const a = 'foobar'
+    const b = 'foo' + a + 'bar'
     
-      // good
-      const a = 'foobar'
-      const b = `foo${a}bar`
-      const c = 'foobar'
+    // good
+    const a = 'foobar'
+    const b = `foo${a}bar`
+    const c = 'foobar'
     ```
 3. 解构赋值
    ```
@@ -219,45 +219,45 @@ async del(id) {
    ```
 4. 拷贝数组  (使用扩展运算符（...）浅拷贝)
     ```
-      const items = [1, 2, 3, 4, 5]
+    const items = [1, 2, 3, 4, 5]
     
-      // bad
-      const itemsCopy = items
+    // bad
+    const itemsCopy = items
     
-      // good
-      const itemsCopy = [...items]
+    // good
+    const itemsCopy = [...items]
     ```
 5. 箭头函数
     ```
-     // bad
-     function fun () {}
-   
-     // good
-     const fun = () => {}
+    // bad
+    function fun () {}
+    
+    // good
+    const fun = () => {}
    ```   
 6. 模块导入导出
     ```
     如果模块只有一个输出值，就使用 export default，
     如果模块有多个输出值，export
-   
-     // bad
-     import * as myObject from './importModule';
-     // good
-     import myObject from './importModule';
+    
+    // bad
+    import * as myObject from './importModule';
+    // good
+    import myObject from './importModule';
    ```
 7. 指令规范
     - 1 指令有缩写一律采用缩写形式
         ```
-         // bad
-         v-bind:class="{'show-left'：true}"
-         v-on:click="getListData"
-       
-         // good
-         :class="{'show-left'：true}"
-         @click="getListData"
-      ```
+        // bad
+        v-bind:class="{'show-left'：true}"
+        v-on:click="getListData"
+        
+        // good
+        :class="{'show-left'：true}"
+        @click="getListData"
+        ```
     - 2 v-for 循环必须加上 key 属性，在整个 for 循环中 key 需要唯一
-      ```
+        ```
         // bad
         <ul>
             <li v-for="todo in todos">
@@ -271,9 +271,9 @@ async del(id) {
                 {{ todo.text }}
             </li>
         </ul>
-      ```
+        ```
     - 3 避免 v-if 和 v-for 同时用在一个元素上（性能问题）
-      ```
+        ```
         将数据替换为一个计算属性，让其返回过滤后的列表
         // bad
         <ul>
@@ -296,7 +296,7 @@ async del(id) {
             }
         }
         </script>
-      
+        
         将 v-if 移动至容器元素上 (比如 ul, ol)
         // bad
         <ul>
@@ -311,12 +311,12 @@ async del(id) {
                 {{ user.name }}
             </li>
         </ul>
-      ```
+        ```
 8. Props 规范
     ```
     // bad
     props: ['status']
-   
+    
     // good 必选并且必须是 0，1，2
     props: {
       status: {

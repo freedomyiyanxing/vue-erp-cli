@@ -10,8 +10,8 @@ module.exports = {
     es6: true,
   },
   extends: [
+    "airbnb-base",
     "plugin:vue/essential",
-    "eslint:recommended",
     "plugin:prettier/recommended",
   ],
   parserOptions: {
