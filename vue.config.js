@@ -1,7 +1,7 @@
 module.exports = {
   lintOnSave: 'default',
   productionSourceMap: true,
-  chainWebpack: () => {
+  // chainWebpack: () => {
     // config.resolve.alias.set('~', '/src/assets/styles');
     //忽略的打包文件 在index.html中使用cnd
     // config.externals({
@@ -21,7 +21,7 @@ module.exports = {
     // entry
     //   .add('@/mock')
     //   .end()
-  },
+  // },
   devServer: {
     // 端口配置
     port: 7001,
@@ -29,8 +29,8 @@ module.exports = {
     // 反向代理配置
     proxy: {
       '/api': {
-        // target: "http://wms-api.bomman.com",
-        target: "http://192.168.1.254:9000",
+        target: "http://wms-api.bomman.com",
+        // target: "http://192.168.1.254:9000",
         ws: true,
         pathRewrite: {
           '^/api': '/'

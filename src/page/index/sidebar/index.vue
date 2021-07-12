@@ -42,7 +42,12 @@
     },
     computed: {
       ...mapGetters(['config', 'menu', 'keyCollapse', 'screen']),
+      // 获取激活的导航栏
       nowTagValue: function () {
+        if (this.$route.path.includes('/oksht-drp/purchase-order/details')){
+          console.log(this.$route.path, '---');
+          return '/oksht-drp/purchase-order/index';
+        }
         return this.$router.$shtRouter.getValue(this.$route);
       }
     },

@@ -23,22 +23,22 @@
         <template slot="title">
           <i :class="item[iconKey]"></i>
           <span slot="title" :class="{'el-menu--display':collapse && first}">
-           {{generateTitle(item)}}
+          00 {{generateTitle(item)}}
           </span>
         </template>
         <template v-for="(child,cIndex) in item[childrenKey]">
           <el-menu-item
-            v-if="validateNull(child[childrenKey])"
             @click="open(child)"
             :index="child[pathKey]"
-            :class="{'is-active':validateActive(child)}"
             :key="child[labelKey]"
+            v-if="validateNull(child[childrenKey]) && !filterDetailsAdd(child.path)"
+            :class="{'is-active':validateActive(child)}"
           >
             <i :class="child[iconKey]"></i>
-            <span slot="title">  34--{{generateTitle(child)}}</span>
+            <span slot="title">{{generateTitle(child)}}</span>
           </el-menu-item>
           <sidebar-item
-            v-else
+            v-else-if="!filterDetailsAdd(child.path)"
             :menu="[child]"
             :key="cIndex"
             :props="props"
@@ -102,6 +102,10 @@
       }
     },
     methods: {
+      // 过滤详情页面 新增页面
+      filterDetailsAdd(path) {
+        return path.endsWith('/details') || path.endsWith('/add');
+      },
       generateTitle(item) {
         return item[this.labelKey];
       },
