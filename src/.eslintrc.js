@@ -19,6 +19,12 @@ module.exports = {
     parser: "babel-eslint",
     sourceType: "module",
   },
+  settings: {
+    "import/extensions": [
+      ".js",
+      ".vue"
+    ]
+  },
   rules: {
     // 单引号
     quotes: [
@@ -29,5 +35,7 @@ module.exports = {
         allowTemplateLiterals: true,
       },
     ],
+    "import/no-unresolved": 0,
+    "import/extensions": 0,
   }
 }

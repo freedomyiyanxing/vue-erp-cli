@@ -1,25 +1,25 @@
-import { isURL } from "@/util/validate";
+/* eslint no-param-reassign: "error" */
 
-let RouterPlugin = function () {
+import { isURL } from '@/util/validate';
+
+const RouterPlugin = function () {
   this.$router = null;
   this.$store = null;
-
 };
 
 const getPath = ({ first, oMenu, propsDefault }) => {
   if (first) {
-    return oMenu[propsDefault.path].replace('/index', '')
-  } else {
-    return oMenu[propsDefault.path]
+    return oMenu[propsDefault.path].replace('/index', '');
   }
-}
+  return oMenu[propsDefault.path];
+};
 
 const setRedirect = (isChild, first, path) => {
   if (!isChild && first && !isURL(path)) {
-    return `${path}/index`
+    return `${path}/index`;
   }
   return null;
-}
+};
 
 const setFirstRouter = ({ first, path, oMenu, propsDefault, component, icon, name, meta }) => {
   if (!first) {
@@ -29,23 +29,24 @@ const setFirstRouter = ({ first, path, oMenu, propsDefault, component, icon, nam
   if (!isURL(path)) {
     oMenu[propsDefault.path] = `${path}/index`;
   }
-  return [{
-    component(resolve) {
-      require([`../${component}.vue`], resolve)
+  return [
+    {
+      component(resolve) {
+        require([`../${component}.vue`], resolve);
+      },
+      icon,
+      name,
+      meta,
+      path: 'index',
     },
-    icon: icon,
-    name: name,
-    meta: meta,
-    path: 'index'
-  }]
+  ];
 };
 
-
 function objToForm(obj) {
-  let result = [];
-  Object.keys(obj).forEach(ele => {
+  const result = [];
+  Object.keys(obj).forEach((ele) => {
     result.push(`${ele}=${obj[ele]}`);
-  })
+  });
   return result.join('&');
 }
 
@@ -53,16 +54,15 @@ RouterPlugin.install = function (Vue, router, store) {
   this.$router = router;
   this.$store = store;
 
-
   this.$router.$shtRouter = {
     safe: this,
     routerList: [],
-    //全局配置
+    // 全局配置
     $config: this.$store.getters.config,
     meta: Object.create(null),
 
     // 设置标题
-    //正则处理路由
+    // 正则处理路由
     // setTitle: (title) => {
     //   document.title = title;
     // },
@@ -82,19 +82,19 @@ RouterPlugin.install = function (Vue, router, store) {
     //   })
     //   return result;
     // },
-    //处理路由
-    getPath: function (params) {
-      let { src } = params;
+    // 处理路由
+    getPath(params) {
+      const { src } = params;
       let result = src || '/';
       // 处理 path 已 http 和 https 开头的
-      if (src.includes("http") || src.includes("https")) {
+      if (src.includes('http') || src.includes('https')) {
         result = `/myiframe/urlPath?${objToForm(params)}`;
       }
       return result;
     },
 
-    //设置路由值
-    getValue: function (route) {
+    // 设置路由值
+    getValue(route) {
       let value;
       if (route.query.src) {
         value = route.query.src;
@@ -104,9 +104,9 @@ RouterPlugin.install = function (Vue, router, store) {
       return value;
     },
 
-    //动态路由
-    formatRoutes: function (menu = [], first) {
-      const SHTRouter = []
+    // 动态路由
+    formatRoutes(menu = [], first) {
+      const SHTRouter = [];
       const propsConfig = this.$config.menu.props;
       const propsDefault = {
         label: propsConfig.label || 'name',
@@ -114,10 +114,10 @@ RouterPlugin.install = function (Vue, router, store) {
         icon: propsConfig.icon || 'icon',
         children: propsConfig.children || 'children',
         meta: propsConfig.meta || 'meta',
-      }
+      };
       if (menu.length === 0) return;
 
-      for (let i = 0; i < menu.length; i++) {
+      for (let i = 0; i < menu.length; i += 1) {
         const oMenu = menu[i];
 
         if (this.routerList.includes(oMenu[propsDefault.path])) {
@@ -125,58 +125,56 @@ RouterPlugin.install = function (Vue, router, store) {
         }
         const path = getPath({ first, oMenu, propsDefault });
 
-        //特殊处理组件
-        const component = 'views' + oMenu.path,
-          name = oMenu[propsDefault.label],
-          icon = oMenu[propsDefault.icon],
-          children = oMenu[propsDefault.children],
-          meta = oMenu[propsDefault.meta] || Object.create(null);
+        // 特殊处理组件
+        const component = `views${oMenu.path}`;
+        const name = oMenu[propsDefault.label];
+        const icon = oMenu[propsDefault.icon];
+        const children = oMenu[propsDefault.children];
+        const meta = oMenu[propsDefault.meta] || Object.create(null);
 
         const isChild = children.length !== 0;
         // console.log(name, ': -- ', children.length)
         const oRouter = {
-          path: path,
-          name: name,
-          icon: icon,
-          meta: meta,
+          path,
+          name,
+          icon,
+          meta,
           redirect: setRedirect(isChild, first, path),
           component(resolve) {
             // 判断是否为首路由
             if (first) {
               // console.log(name);
-              console.log('-------', path)
+              console.log('-------', path);
               require(['../page/index'], resolve);
-              return
+              return;
             }
             // 判断是否为多层路由
             if (isChild && !first) {
               console.log('*******', path);
-              require(['../page/index/layout'], resolve)
-              return
+              require(['../page/index/layout'], resolve);
+              return;
             }
             // 判断是否为最终的页面视图
-            require([`../${component}.vue`], resolve)
+            require([`../${component}.vue`], resolve);
           },
           // 处理是否为一级路由
-          children:
-            !isChild
-              ? setFirstRouter({ first, path, oMenu, propsDefault, component, icon, name, meta })
-              : this.formatRoutes(children, false)
-        }
+          children: !isChild
+            ? setFirstRouter({ first, path, oMenu, propsDefault, component, icon, name, meta })
+            : this.formatRoutes(children, false),
+        };
         // console.log(oRouter);
-        SHTRouter.push(oRouter)
+        SHTRouter.push(oRouter);
       }
 
       if (first) {
         if (!this.routerList.includes(SHTRouter[0][propsDefault.path])) {
-          SHTRouter.forEach(i => this.safe.$router.addRoute(i))
-          this.routerList.push(SHTRouter[0][propsDefault.path])
+          SHTRouter.forEach((i) => this.safe.$router.addRoute(i));
+          this.routerList.push(SHTRouter[0][propsDefault.path]);
         }
-      } else {
-        console.log(SHTRouter, '*************');
-        return SHTRouter
       }
-    }
-  }
-}
+      console.log(SHTRouter, '*************');
+      // return SHTRouter;
+    },
+  };
+};
 export default RouterPlugin;
