@@ -1,46 +1,46 @@
 import request from '@/util/http';
 
 // 仓库盘点核价
-export const getInventoryCheckPricing = data => {
+export const getInventoryCheckPricing = (data) => {
   return request({
     url: '/api/oksht-inventory/inventoryCheckPricing/page',
     method: 'get',
-    params: { ...data }
-  })
-}
+    params: { ...data },
+  });
+};
 
 // 仓库盘点核价详情
-export const getInventoryCheckPricingDetail = data => {
+export const getInventoryCheckPricingDetail = (data) => {
   return request({
     url: '/api/oksht-inventory/inventoryCheckPricingDetail/page',
     method: 'get',
-    params: { ...data }
-  })
-}
+    params: { ...data },
+  });
+};
 
 // 修改
-export const editInventoryCheckPricing = data => {
+export const editInventoryCheckPricing = (data) => {
   return request({
     url: '/api/oksht-inventory/inventoryCheckPricing',
     method: 'post',
-    data: { ...data }
-  })
-}
+    data: { ...data },
+  });
+};
 
 // 更新状态
-export const status = data => {
+export const status = (data) => {
   return request({
     url: '/api/oksht-inventory/inventoryCheckPricing/status',
     method: 'put',
-    data: { ...data }
-  })
-}
+    data: { ...data },
+  });
+};
 
 // 盘点人
-export const getCheckerUser = data => {
+export const getCheckerUser = (data) => {
   return request({
     url: '/api/oksht-inventory/inventoryCheckPricing/user',
     method: 'get',
-    params: { ...data }
-  })
-}
+    params: { ...data },
+  });
+};

@@ -1,5 +1,3 @@
-/* eslint no-param-reassign: "error" */
-
 import { isURL } from '@/util/validate';
 
 const RouterPlugin = function () {

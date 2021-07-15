@@ -7,24 +7,23 @@
 </template>
 
 <script>
-  export default {
-    name: 'BasicContainer'
-  };
+export default {
+  name: 'BasicContainer',
+};
 </script>
 
 <style lang="scss">
-  .basic-container {
-    padding: 10px 6px;
-    border-radius: 10px;
-    box-sizing: border-box;
+.basic-container {
+  padding: 10px 6px;
+  border-radius: 10px;
+  box-sizing: border-box;
 
-    .el-card {
-      width: 100%;
-    }
-
-    &:first-child {
-      padding-top: 0;
-    }
+  .el-card {
+    width: 100%;
   }
-</style>
 
+  &:first-child {
+    padding-top: 0;
+  }
+}
+</style>

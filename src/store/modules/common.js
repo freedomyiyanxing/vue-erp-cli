@@ -1,9 +1,5 @@
-import {
-  setStore,
-  getStore,
-  removeStore
-} from '@/util/store'
-import config from '@/config'
+import { setStore, getStore, removeStore } from '@/util/store';
+import config from '@/config';
 
 const common = {
   state: {
@@ -25,15 +21,16 @@ const common = {
     colorName: getStore({ name: 'colorName' }) || '#409EFF',
     themeName: getStore({ name: 'themeName' }) || 'theme-default',
     lockPasswd: getStore({ name: 'lockPasswd' }) || '',
-    config: config,
+    config,
   },
   mutations: {
     SET_LANGUAGE: (state, language) => {
-      state.language = language
+      // eslint-disable-next-line no-param-reassign
+      state.language = language;
       setStore({
         name: 'language',
-        content: state.language
-      })
+        content: state.language,
+      });
     },
     SET_SHADE: (state, active) => {
       state.isShade = active;
@@ -49,8 +46,8 @@ const common = {
       setStore({
         name: 'isLock',
         content: state.isLock,
-        type: 'session'
-      })
+        type: 'session',
+      });
     },
     SET_SCREEN: (state, screen) => {
       state.screen = screen;
@@ -60,35 +57,35 @@ const common = {
       setStore({
         name: 'colorName',
         content: state.colorName,
-      })
+      });
     },
     SET_THEME_NAME: (state, themeName) => {
       state.themeName = themeName;
       setStore({
         name: 'themeName',
         content: state.themeName,
-      })
+      });
     },
     SET_LOCK_PASSWD: (state, lockPasswd) => {
       state.lockPasswd = lockPasswd;
       setStore({
         name: 'lockPasswd',
         content: state.lockPasswd,
-        type: 'session'
-      })
+        type: 'session',
+      });
     },
     CLEAR_LOCK: (state) => {
       state.isLock = false;
       state.lockPasswd = '';
       removeStore({
         name: 'lockPasswd',
-        type: 'session'
+        type: 'session',
       });
       removeStore({
         name: 'isLock',
-        type: 'session'
+        type: 'session',
       });
     },
-  }
-}
-export default common
+  },
+};
+export default common;

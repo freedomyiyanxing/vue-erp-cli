@@ -31,21 +31,21 @@
 </template>
 
 <script>
-  import tags from "./tags";
-  import top from "./top/";
-  import sidebar from "./sidebar/";
+import tags from './tags';
+import top from './top';
+import sidebar from './sidebar';
 
-  export default {
-    components: {
-      top,
-      tags,
-      sidebar
-    },
-    name: "index",
-    // methods: {
-    // showCollapse() {
-    //   this.$store.commit("SET_COLLAPSE");
-    // },
-    // }
-  };
+export default {
+  components: {
+    top,
+    tags,
+    sidebar,
+  },
+  name: 'index',
+  // methods: {
+  // showCollapse() {
+  //   this.$store.commit("SET_COLLAPSE");
+  // },
+  // }
+};
 </script>

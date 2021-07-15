@@ -11,4 +11,4 @@ export const getPurchaseReturnStockPage = async (params) => {
     params,
   });
   return data.data;
-}
+};

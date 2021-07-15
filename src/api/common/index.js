@@ -1,12 +1,11 @@
 import request from '@/util/http';
 
-//区域城市接口url
+// 区域城市接口url
 export const getCityUrl = '/api/oksht-customer/area/list?pid=';
 export const getDetailsCityUrl = '/api/oksht-customer/area/list?id=';
 
-//上传图片接口
+// 上传图片接口
 export const resourceUpload = '/api/blade-resource/oss/upload';
-
 
 // /**
 //  * 通过url获取数据
@@ -119,8 +118,8 @@ export const resourceUpload = '/api/blade-resource/oss/upload';
 // 搜索组件，获取下拉数据
 export const getData = (url, data) => {
   return request({
-    url: url,
+    url,
     method: 'get',
-    params: data
-  })
-}
+    params: data,
+  });
+};

@@ -8,19 +8,19 @@ export const getList = (current, size, params) => {
       ...params,
       current,
       size,
-    }
-  })
-}
+    },
+  });
+};
 
 export const getDetail = (id) => {
   return request({
     url: '/api/blade-system/client/detail',
     method: 'get',
     params: {
-      id
-    }
-  })
-}
+      id,
+    },
+  });
+};
 
 export const remove = (ids) => {
   return request({
@@ -28,23 +28,22 @@ export const remove = (ids) => {
     method: 'post',
     params: {
       ids,
-    }
-  })
-}
+    },
+  });
+};
 
 export const add = (row) => {
   return request({
     url: '/api/blade-system/client/submit',
     method: 'post',
-    data: row
-  })
-}
+    data: row,
+  });
+};
 
 export const update = (row) => {
   return request({
     url: '/api/blade-system/client/submit',
     method: 'post',
-    data: row
-  })
-}
-
+    data: row,
+  });
+};

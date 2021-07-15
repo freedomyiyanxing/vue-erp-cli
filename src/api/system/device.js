@@ -8,29 +8,29 @@ export const getList = (current, size, params) => {
       ...params,
       current,
       size,
-    }
-  })
-}
+    },
+  });
+};
 export const getAllDeviceList = (userId) => {
   return request({
     url: '/api/blade-system/device/allList',
     method: 'get',
     params: {
-      userId
+      userId,
     },
-  })
-}
+  });
+};
 
-export const saveUserDevices = (userId,deviceIds) => {
+export const saveUserDevices = (userId, deviceIds) => {
   return request({
     url: '/api/blade-system/device/saveUserDevices',
     method: 'post',
     params: {
       userId,
       deviceIds,
-    }
-  })
-}
+    },
+  });
+};
 
 export const disable = (deviceIds) => {
   return request({
@@ -38,9 +38,9 @@ export const disable = (deviceIds) => {
     method: 'post',
     params: {
       deviceIds,
-    }
-  })
-}
+    },
+  });
+};
 
 export const enable = (deviceIds) => {
   return request({
@@ -48,9 +48,9 @@ export const enable = (deviceIds) => {
     method: 'post',
     params: {
       deviceIds,
-    }
-  })
-}
+    },
+  });
+};
 
 export const auth = (deviceIds) => {
   return request({
@@ -58,6 +58,6 @@ export const auth = (deviceIds) => {
     method: 'post',
     params: {
       deviceIds,
-    }
-  })
-}
+    },
+  });
+};

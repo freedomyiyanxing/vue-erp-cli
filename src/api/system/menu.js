@@ -8,34 +8,34 @@ export const getList = (current, size, params) => {
       ...params,
       current,
       size,
-    }
-  })
-}
+    },
+  });
+};
 export const remove = (ids) => {
   return request({
     url: '/api/blade-system/menu/remove',
     method: 'post',
     params: {
       ids,
-    }
-  })
-}
+    },
+  });
+};
 
 export const add = (row) => {
   return request({
     url: '/api/blade-system/menu/submit',
     method: 'post',
-    data: row
-  })
-}
+    data: row,
+  });
+};
 
 export const update = (row) => {
   return request({
     url: '/api/blade-system/menu/submit',
     method: 'post',
-    data: row
-  })
-}
+    data: row,
+  });
+};
 
 export const getMenu = (id) => {
   return request({
@@ -43,6 +43,6 @@ export const getMenu = (id) => {
     method: 'get',
     params: {
       id,
-    }
-  })
-}
+    },
+  });
+};

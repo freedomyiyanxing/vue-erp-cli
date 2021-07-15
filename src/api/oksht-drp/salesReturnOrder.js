@@ -1,83 +1,83 @@
 import request from '@/util/http';
 
-export const getSalesReturnOrder = salesReturnOrder => {
+export const getSalesReturnOrder = (salesReturnOrder) => {
   return request({
     url: '/api/oksht-drp/salesReturnOrder/page',
     method: 'get',
-    params: salesReturnOrder
-  })
-}
+    params: salesReturnOrder,
+  });
+};
 
-export const getCustomerInfo = name => {
+export const getCustomerInfo = (name) => {
   return request({
     url: '/api/oksht-crm/enterpriseCustomer/name',
     method: 'get',
     params: {
       customerStatus_0: 1,
-      name_4: name
-    }
-  })
-}
+      name_4: name,
+    },
+  });
+};
 
-export const addSalesReturnOrder = salesReturnOrder => {
+export const addSalesReturnOrder = (salesReturnOrder) => {
   return request({
     url: '/api/oksht-drp/salesReturnOrder/save',
     method: 'post',
-    data: salesReturnOrder
-  })
-}
+    data: salesReturnOrder,
+  });
+};
 
-export const getCustomerDetails = id => {
+export const getCustomerDetails = (id) => {
   return request({
     url: `/api/oksht-crm/enterpriseCustomer/${id}`,
     method: 'get',
-  })
-}
+  });
+};
 
-export const getAddressList = data => {
+export const getAddressList = (data) => {
   return request({
     url: '/api/oksht-crm/enterpriseCustomerDeliveryAddress',
     method: 'get',
-    params: data
-  })
-}
+    params: data,
+  });
+};
 
-export const getSalesReturnOrderDetails = details => {
+export const getSalesReturnOrderDetails = (details) => {
   return request({
     url: '/api/oksht-drp/salesReturnOrder/detail',
     method: 'get',
-    params: details
-  })
-}
+    params: details,
+  });
+};
 
-export const updateSalesReturnOrder = update => {
+export const updateSalesReturnOrder = (update) => {
   return request({
     url: '/api/oksht-drp/salesReturnOrder/update',
     method: 'post',
-    data: update
-  })
-}
+    data: update,
+  });
+};
 
-export const updateOrderStatus = updateOrderStatus => {
+export const updateOrderStatus = (status) => {
   return request({
     url: '/api/oksht-drp/salesReturnOrder/updateOrderStatus',
     method: 'post',
-    data: updateOrderStatus
-  })
-}
+    data: status,
+  });
+};
 
-export const submitApprove = approve => {
+export const submitApprove = (approve) => {
   return request({
     url: '/api/oksht-drp/salesReturnOrder/approve',
     method: 'post',
-    data: approve
-  })
-}
+    data: approve,
+  });
+};
 
-export const getModelVO = vos => {
+export const getModelVO = (vos) => {
   return request({
     url: '/api/oksht-inventory/inventory/modelVO',
     method: 'post',
-    data: vos
-  })
-}
+    data: vos,
+  });
+};

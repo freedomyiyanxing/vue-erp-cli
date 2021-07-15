@@ -8,42 +8,42 @@ export const getList = (current, size, params) => {
       ...params,
       current,
       size,
-    }
-  })
-}
+    },
+  });
+};
 export const remove = (ids) => {
   return request({
     url: '/api/blade-system/dept/remove',
     method: 'post',
     params: {
       ids,
-    }
-  })
-}
+    },
+  });
+};
 
-export const getDepotList = params => {
+export const getDepotList = (params) => {
   return request({
     url: '/api/blade-user/user/depotId',
     method: 'get',
-    params: params
-  })
-}
+    params,
+  });
+};
 
 export const add = (row) => {
   return request({
     url: '/api/blade-system/dept/submit',
     method: 'post',
-    data: row
-  })
-}
+    data: row,
+  });
+};
 
 export const update = (row) => {
   return request({
     url: '/api/blade-system/dept/submit',
     method: 'post',
-    data: row
-  })
-}
+    data: row,
+  });
+};
 
 export const getDept = (id) => {
   return request({
@@ -51,18 +51,18 @@ export const getDept = (id) => {
     method: 'get',
     params: {
       id,
-    }
-  })
-}
+    },
+  });
+};
 export const getDeptTree = (tenantId) => {
   return request({
     url: '/api/blade-system/dept/tree',
     method: 'get',
     params: {
       tenantId,
-    }
-  })
-}
+    },
+  });
+};
 
 export const listTenantByDept = (ids) => {
   return request({
@@ -70,7 +70,6 @@ export const listTenantByDept = (ids) => {
     method: 'get',
     params: {
       ids,
-    }
-  })
-}
-
+    },
+  });
+};

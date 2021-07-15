@@ -10,12 +10,7 @@
         filterable
         placeholder="请选择所属组织"
       >
-        <el-option
-          v-for="item in userInfo.tenantList"
-          :key="item.id"
-          :label="item.tenantName"
-          :value="item.id"
-        />
+        <el-option v-for="item in userInfo.tenantList" :key="item.id" :label="item.tenantName" :value="item.id" />
       </el-select>
       <el-select
         v-if="item.type === 'supplierType'"
@@ -55,12 +50,7 @@
         placeholder="请选择采购员"
         clearable
       >
-        <el-option
-          v-for="item in buyerOptions"
-          :key="item.id"
-          :label="item.realName"
-          :value="item.id"
-        />
+        <el-option v-for="item in buyerOptions" :key="item.id" :label="item.realName" :value="item.id" />
       </el-select>
 
       <el-select
@@ -71,12 +61,7 @@
         clearable
         placeholder="业务员"
       >
-        <el-option
-          v-for="item in sellerOptions"
-          :key="item.id"
-          :label="item.realName"
-          :value="item.id"
-        />
+        <el-option v-for="item in sellerOptions" :key="item.id" :label="item.realName" :value="item.id" />
       </el-select>
 
       <el-select
@@ -87,12 +72,7 @@
         filterable
         placeholder="业务员助理"
       >
-        <el-option
-          v-for="item in sellerOptions"
-          :key="item.id"
-          :label="item.realName"
-          :value="item.id"
-        />
+        <el-option v-for="item in sellerOptions" :key="item.id" :label="item.realName" :value="item.id" />
       </el-select>
 
       <el-select
@@ -102,12 +82,7 @@
         :placeholder="item.placeholder"
         clearable
       >
-        <el-option
-          :key="item.id"
-          :value="item.id"
-          :label="item.name"
-          v-for="item in outboundWarehouse"
-        />
+        <el-option :key="item.id" :value="item.id" :label="item.name" v-for="item in outboundWarehouse" />
       </el-select>
 
       <el-select
@@ -117,12 +92,7 @@
         :placeholder="item.placeholder"
         clearable
       >
-        <el-option
-          :key="key"
-          :value="key"
-          :label="label"
-          v-for="(label, key) of item.options"
-        />
+        <el-option :key="key" :value="key" :label="label" v-for="(label, key) of item.options" />
       </el-select>
 
       <el-date-picker
@@ -156,100 +126,100 @@
 </template>
 
 <script>
-  import { mapGetters } from "vuex";
-  import { getUserList } from "@/api/system/user";
-  import { getDepot } from "@/api/oksht-drp/purchase-warehousing";
+import { mapGetters } from 'vuex';
+import { getUserList } from '@/api/system/user';
+import { getDepot } from '@/api/oksht-drp/purchase-warehousing';
 
-  export default {
-    name: "drp-search-comp",
-    computed: {
-      ...mapGetters(["dicts", "tissue", "userInfo"]),
+export default {
+  name: 'drp-search-comp',
+  computed: {
+    ...mapGetters(['dicts', 'tissue', 'userInfo']),
+  },
+  props: {
+    searchData: {
+      type: Array,
+      default: null,
     },
-    props: {
-      searchData: {
-        type: Array,
-        default: null,
-      },
+  },
+  data() {
+    const form = Object.create(null);
+    this.searchData.forEach((item) => {
+      if (item.key) {
+        form[item.key] = item.value || null;
+      }
+      if (item.type === 'tenant') {
+        // form['tenantId'] = this.$store.state.user.tissue.id;
+      }
+      if (item.type === 'seller') {
+        this.getSellerInfo();
+      }
+      if (item.type === 'request') {
+        this.getOutboundWarehouse();
+      }
+      if (item.type === 'buyer') {
+        this.getBuyerInfo();
+      }
+    });
+    return {
+      buyerOptions: [],
+      sellerOptions: [],
+      date: [],
+      searchForm: form,
+      outboundWarehouse: [],
+    };
+  },
+
+  methods: {
+    onSubmit() {
+      if (this.date) {
+        this.searchForm.startTime = this.date ? this.date[0] : null;
+        this.searchForm.endTime = this.date ? this.date[1] : null;
+      } else {
+        this.searchForm.startTime = null;
+        this.searchForm.endTime = null;
+      }
+      this.$emit('searchSubmit', this.searchForm, 'onSubmit');
     },
-    data() {
-      const form = Object.create(null);
-      this.searchData.forEach((item) => {
-        if (item.key) {
-          form[item.key] = item.value || null;
-        }
-        if (item.type === "tenant") {
-          // form['tenantId'] = this.$store.state.user.tissue.id;
-        }
-        if (item.type === "seller") {
-          this.getSellerInfo();
-        }
-        if (item.type === "request") {
-          this.getOutboundWarehouse();
-        }
-        if (item.type === "buyer") {
-          this.getBuyerInfo();
-        }
+
+    // 重置
+    resetForm() {
+      Object.keys(this.searchForm).forEach((key) => {
+        this.searchForm[key] = null;
       });
-      return {
-        buyerOptions: [],
-        sellerOptions: [],
-        date: [],
-        searchForm: form,
-        outboundWarehouse: [],
-      };
+      this.date = [];
+      this.$emit('searchSubmit', this.searchForm, 'resetForm');
     },
 
-    methods: {
-      onSubmit() {
-        if (this.date) {
-          this.searchForm.startTime = this.date ? this.date[0] : null;
-          this.searchForm.endTime = this.date ? this.date[1] : null;
-        } else {
-          this.searchForm.startTime = null;
-          this.searchForm.endTime = null;
-        }
-        this.$emit("searchSubmit", this.searchForm, "onSubmit");
-      },
-
-      // 重置
-      resetForm() {
-        Object.keys(this.searchForm).forEach((key) => {
-          this.searchForm[key] = null;
-        });
-        this.date = [];
-        this.$emit("searchSubmit", this.searchForm, "resetForm");
-      },
-
-      // 查询采购员
-      async getBuyerInfo() {
-        const {
-          data: { data },
-        } = await getUserList("3");
-        this.buyerOptions = data;
-      },
-
-      // 查询销售员
-      async getSellerInfo() {
-        const {
-          data: { data },
-        } = await getUserList("4");
-        this.sellerOptions = data;
-      },
-
-      async getOutboundWarehouse() {
-        this.outboundWarehouse = await getDepot({ type: 4 });
-      },
+    // 查询采购员
+    async getBuyerInfo() {
+      const {
+        data: { data },
+      } = await getUserList('3');
+      this.buyerOptions = data;
     },
-  };
+
+    // 查询销售员
+    async getSellerInfo() {
+      const {
+        data: { data },
+      } = await getUserList('4');
+      this.sellerOptions = data;
+    },
+
+    async getOutboundWarehouse() {
+      this.outboundWarehouse = await getDepot({ type: 4 });
+    },
+  },
+};
 </script>
 
 <style scoped lang="scss">
-  .demo-form-inline {
-    display: flex;
-    flex-wrap: wrap;
+.demo-form-inline {
+  display: flex;
+  flex-wrap: wrap;
 
-    > div {
-      margin-bottom: 10px;
-    }
+  > div {
+    margin-bottom: 10px;
   }
+}
 </style>

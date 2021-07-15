@@ -116,7 +116,7 @@ export default {
       }
     },
     edit(id) {
-      this.$refs['add'].getInfo(id);
+      this.$refs.add.getInfo(id);
     },
     handleDispose(type, form) {
       this.params = { ...this.params, ...form };
@@ -127,7 +127,7 @@ export default {
         this.resetForm();
       }
       if (type === 'add') {
-        this.$refs['add'].handleOpen();
+        this.$refs.add.handleOpen();
       }
     },
     async getData() {
