@@ -8,7 +8,8 @@
           background-color="#545c64"
           class="el-menu-vertical-demo"
           default-active="1"
-          text-color="#fff">
+          text-color="#fff"
+        >
           <el-menu-item @click="handleOpen(1)" index="1">
             <i class="el-icon-sell"></i>
             <span slot="title">销售开票申请</span>
@@ -25,13 +26,16 @@
       </el-col>
       <el-col :span="18">
         <el-button @click="add" size="mini" type="primary">新增</el-button>
-        <el-table :data="tableData"
-                  border
-                  height="700" show-summary
-                  size="mini"
-                  stripe
-                  style="width: 100%;margin-top: 10px;"
-                  v-loading="loading">
+        <el-table
+          :data="tableData"
+          border
+          height="700"
+          show-summary
+          size="mini"
+          stripe
+          style="width: 100%; margin-top: 10px"
+          v-loading="loading"
+        >
           <el-table-column fixed type="selection" width="55" />
           <el-table-column align="center" fixed label="序号" type="index" width="45" />
           <el-table-column align="center" label="流程名称" prop="processName" width="200" />
@@ -39,17 +43,16 @@
           <el-table-column align="center" label="创建时间" prop="createTime" width="200" />
           <el-table-column align="left" fixed="right" label="操作" min-width="150">
             <template slot-scope="scope">
-              <el-button @click="btnClick('edit',scope.row)" size="mini" type="primary">编辑</el-button>
-              <el-button @click="btnClick('look',scope.row)" size="mini" type="primary">预览</el-button>
-              <el-button @click="btnClick('del',scope.row)" size="mini" type="primary">删除</el-button>
+              <el-button @click="btnClick('edit', scope.row)" size="mini" type="primary">编辑</el-button>
+              <el-button @click="btnClick('look', scope.row)" size="mini" type="primary">预览</el-button>
+              <el-button @click="btnClick('del', scope.row)" size="mini" type="primary">删除</el-button>
             </template>
           </el-table-column>
-
         </el-table>
         <el-pagination
           :current-page="pages.current"
           :page-size="pages.size"
-          :page-sizes="[15, 30, 50,100]"
+          :page-sizes="[15, 30, 50, 100]"
           :total="pages.total"
           @current-change="handleCurrentChange"
           @size-change="handleSizeChange"
@@ -63,78 +66,66 @@
 </template>
 
 <script>
+import { getList } from '@/api/system/workflow';
 
-  import { getList } from "@/api/system/workflow";
-
-  export default {
-    components: {
-      Increment: () => import("./components/workflow/increment")
+export default {
+  components: {
+    Increment: () => import('./components/workflow/increment'),
+  },
+  name: 'workflow',
+  data() {
+    return {
+      loading: false,
+      tableData: [],
+      pages: {
+        current: 1,
+        total: 0,
+        size: 15,
+      },
+      params: {
+        processType: 1,
+      },
+    };
+  },
+  created() {},
+  methods: {
+    async getList() {
+      this.loading = true;
+      const data = { processType: this.params.processType, ...this.pages };
+      const res = await getList(data);
+      this.loading = false;
+      this.tableData = res.data.data.records;
+      this.pages.current = res.data.data.current;
+      this.pages.total = res.data.data.total;
     },
-    name: "workflow",
-    data() {
-      return {
-        loading: false,
-        tableData: [],
-        pages: {
-          current: 1,
-          total: 0,
-          size: 15
+    handleOpen(key) {
+      this.params.processType = key;
+      this.getList();
+    },
+    btnClick(type, row) {
+      const state = {
+        edit: () => {
+          this.$refs.increment.handleOpen(row.processDynamicDefinitionId);
         },
-        params: {
-          processType: 1
-        }
+        look: () => {},
+        del: () => {},
       };
+      state[type].call();
     },
-    created() {
-
+    // 分页
+    handleSizeChange(val) {
+      this.pages.size = val;
+      this.getList();
     },
-    methods: {
-      async getList() {
-        this.loading = true;
-        let data = Object.assign({
-          processType: this.params.processType
-        }, this.pages);
-        const res = await getList(data);
-        this.loading = false;
-        this.tableData = res.data.data.records;
-        this.pages.current = res.data.data.current;
-        this.pages.total = res.data.data.total;
-      },
-      handleOpen(key) {
-        this.params.processType = key;
-        this.getList();
-      },
-      btnClick(type, row) {
-        const state = {
-          "edit": () => {
-            this.$refs["increment"].handleOpen(row.processDynamicDefinitionId);
-          },
-          "look": () => {
-
-          },
-          "del": () => {
-
-          }
-
-        };
-        state[type].call();
-      },
-      //分页
-      handleSizeChange(val) {
-        this.pages.size = val;
-        this.getList();
-      },
-      handleCurrentChange(val) {
-        this.pages.current = val;
-        this.getList();
-      },
-      add() {
-        this.$refs["increment"].handleOpen();
-      }
-    }
-  };
+    handleCurrentChange(val) {
+      this.pages.current = val;
+      this.getList();
+    },
+    add() {
+      this.$refs.increment.handleOpen();
+    },
+  },
+};
 </script>
 
-<style lang='scss' scoped>
-
-</style>
+<style lang="scss" scoped></style>

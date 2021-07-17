@@ -1,9 +1,9 @@
 import { isURL } from '@/util/validate';
 
-const RouterPlugin = function () {
+function RouterPlugin() {
   this.$router = null;
   this.$store = null;
-};
+}
 
 const getPath = ({ first, oMenu, propsDefault }) => {
   if (first) {
@@ -25,7 +25,9 @@ const setFirstRouter = ({ first, path, oMenu, propsDefault, component, icon, nam
   }
 
   if (!isURL(path)) {
-    oMenu[propsDefault.path] = `${path}/index`;
+    if (oMenu[propsDefault.path]) {
+      oMenu[propsDefault.path] = `${path}/index`;
+    }
   }
   return [
     {

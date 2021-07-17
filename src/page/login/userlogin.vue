@@ -31,7 +31,7 @@
         </el-col>
         <el-col :span="8">
           <div class="login-code">
-            <img :src="loginForm.image" class="login-code-img" @click="refreshCode" />
+            <img :src="loginForm.image" class="login-code-img" @click="refreshCode" alt="img" />
           </div>
         </el-col>
       </el-row>

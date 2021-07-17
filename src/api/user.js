@@ -18,11 +18,17 @@ export const loginByUsername = (tenantId, account, password, type, key, code) =>
     },
   });
 
-export const getButtons = () =>
-  request({
+// export const getButtons = () =>
+//   request({
+//     url: '/api/blade-system/menu/buttons',
+//     method: 'get',
+//   });
+export function getButtons() {
+  return request({
     url: '/api/blade-system/menu/buttons',
     method: 'get',
   });
+}
 
 export const getUserInfo = () =>
   request({

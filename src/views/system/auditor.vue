@@ -2,20 +2,16 @@
   <!-- 设置审批人 -->
   <basicContainer class="main">
     <div class="shell">
-
       <el-table :data="tableData" style="width: 100%" size="mini" border v-loading="loading">
-        <el-table-column type="index" width="50" label="序号" align="center"> </el-table-column>
-        <el-table-column prop="moduleName" label="审批模块名称" align="center">
-        </el-table-column>
+        <el-table-column type="index" width="50" label="序号" align="center"></el-table-column>
+        <el-table-column prop="moduleName" label="审批模块名称" align="center"> </el-table-column>
         <el-table-column prop="person" label="审批人" align="center">
           <template slot-scope="scope">
-            <span v-for="(item, index) in scope.row.approveModulePersonList" :key="index">{{ item.person + "，" }}</span>
+            <span v-for="(item, index) in scope.row.approveModulePersonList" :key="index"> {{ item.person }} </span>
           </template>
         </el-table-column>
         <el-table-column prop="isAuto" label="自动审批" align="center">
-          <template slot-scope="scope">{{
-          scope.row.isAuto == 0 ? "否" : "是"
-        }}</template>
+          <template slot-scope="scope">{{ scope.row.isAuto == 0 ? '否' : '是' }} </template>
         </el-table-column>
         <el-table-column label="操作" align="center">
           <template slot-scope="scope">
@@ -43,24 +39,43 @@
             <div class="tab_box_add_box">
               <el-button class="add_son" type="success" @click="addRow">新 增</el-button>
               <el-table :data="approveModulePersonList" style="width: 100%" size="mini">
-                <el-table-column type="index" width="50" label="序号" align="center">
-                </el-table-column>
+                <el-table-column type="index" width="50" label="序号" align="center" />
                 <el-table-column label="* 审批人" align="center">
                   <template slot-scope="scope">
-                    <el-select filterable v-model="scope.row.person" placeholder="请选择" value-key="id"
-                      @change="personChange(scope.$index, scope.row)">
-                      <el-option v-for="item in assistantOptions" :key="item.realName" :label="item.realName"
-                        :value="item">
+                    <el-select
+                      filterable
+                      v-model="scope.row.person"
+                      placeholder="请选择"
+                      value-key="id"
+                      @change="personChange(scope.$index, scope.row)"
+                    >
+                      <el-option
+                        v-for="item in assistantOptions"
+                        :key="item.realName"
+                        :label="item.realName"
+                        :value="item"
+                      >
                       </el-option>
                     </el-select>
                   </template>
                 </el-table-column>
                 <el-table-column label="* 负责公司" align="center">
                   <template slot-scope="scope">
-                    <el-select multiple v-model="scope.row.tenantId" filterable placeholder="请选择" size="mini"
-                      style="width: 100%;" @change="tenantChange(scope.$index, scope.row)">
-                      <el-option v-for="item in organizationChartOptions" :key="item.id" :label="item.tenantName"
-                        :value="item.id">
+                    <el-select
+                      multiple
+                      v-model="scope.row.tenantId"
+                      filterable
+                      placeholder="请选择"
+                      size="mini"
+                      style="width: 100%"
+                      @change="tenantChange(scope.$index, scope.row)"
+                    >
+                      <el-option
+                        v-for="item in organizationChartOptions"
+                        :key="item.id"
+                        :label="item.tenantName"
+                        :value="item.id"
+                      >
                       </el-option>
                     </el-select>
                   </template>
@@ -79,14 +94,13 @@
           <el-button type="primary" @click="save" size="mini">确 定</el-button>
         </span>
       </el-dialog>
-
     </div>
   </basicContainer>
 </template>
 <script>
-import { getList } from "@/api/system/tenant";
-import { getUserList } from "@/api/system/user";
-import { getApprovemodule, updateApprovemodule, } from "@/api/oksht-drp/approvemodule";
+import { getList } from '@/api/system/tenant';
+import { getUserList } from '@/api/system/user';
+import { getApprovemodule, updateApprovemodule } from '@/api/oksht-drp/approvemodule';
 
 export default {
   data() {
@@ -105,8 +119,8 @@ export default {
       tableData: [],
       rules: {
         name: [
-          { required: true, message: "请输入活动名称", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" },
+          { required: true, message: '请输入活动名称', trigger: 'blur' },
+          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' },
         ],
       },
     };
@@ -116,8 +130,8 @@ export default {
       this.ruleForm.approveModulePersonList.splice(i, 1);
       this.approveModulePersonList.splice(i, 1);
       this.$message({
-        message: "删除成功",
-        type: "success",
+        message: '删除成功',
+        type: 'success',
       });
     },
     personChange(i, val) {
@@ -125,9 +139,7 @@ export default {
       this.ruleForm.approveModulePersonList[i].personId = val.person.id;
     },
     tenantChange(i, val) {
-      this.ruleForm.approveModulePersonList[
-        i
-      ].tenantId = val.tenantId.toString();
+      this.ruleForm.approveModulePersonList[i].tenantId = val.tenantId.toString();
     },
     addRow() {
       let res = false;
@@ -140,8 +152,8 @@ export default {
       if (res) return;
       this.approveModulePersonList.push({});
       this.ruleForm.approveModulePersonList.push({
-        tenant: "",
-        person: "",
+        tenant: '',
+        person: '',
         moduleCode: this.ruleForm.moduleCode,
       });
     },
@@ -158,11 +170,11 @@ export default {
       //   res = true;
       // }
       if (res) return;
-      updateApprovemodule(this.ruleForm).then((res) => {
-        if (res.data.success) {
+      updateApprovemodule(this.ruleForm).then((result) => {
+        if (result.data.success) {
           this.$message({
-            message: "修改成功",
-            type: "success",
+            message: '修改成功',
+            type: 'success',
           });
           this.init(this.query);
           this.dialogVisible = false;
@@ -173,11 +185,9 @@ export default {
       done();
     },
     edit(row) {
-      this.approveModulePersonList = JSON.parse(
-        JSON.stringify(row.approveModulePersonList)
-      );
+      this.approveModulePersonList = JSON.parse(JSON.stringify(row.approveModulePersonList));
       this.approveModulePersonList.forEach((i) => {
-        i.tenantId = i.tenantId.split(",");
+        i.tenantId = i.tenantId.split(',');
         i.tenantId = i.tenantId.map((n) => {
           return Number(n);
         });
@@ -185,7 +195,7 @@ export default {
       this.ruleForm = JSON.parse(JSON.stringify(row));
       this.dialogVisible = true;
       // 客户所属公司
-      getList("", "").then((res) => {
+      getList('', '').then((res) => {
         if (res.data.data) {
           this.organizationChartOptions = res.data.data.records;
         }
@@ -213,7 +223,7 @@ export default {
   created() {
     this.init(this.query);
     getUserList().then((res) => {
-      console.log(res)
+      console.log(res);
       if (res.data.data) {
         this.assistantOptions = res.data.data;
       }
@@ -225,8 +235,10 @@ export default {
 .block {
   text-align: right;
 }
+
 .tab_box_add_box {
   position: relative;
+
   .add_son {
     z-index: 99;
     position: absolute;

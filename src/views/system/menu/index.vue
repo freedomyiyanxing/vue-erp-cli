@@ -13,10 +13,10 @@
       size="mini"
       row-key="id"
       height="750"
-      style="width: 100%"
       :data="tableData"
       default-expand-all
       v-loading="loading"
+      style="width: 100%"
       :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
     >
       <el-table-column align="center" fixed label="序号" type="index" width="50" />

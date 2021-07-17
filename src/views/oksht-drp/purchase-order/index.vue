@@ -186,7 +186,7 @@ export default {
 
     // 编辑
     async handleEdit(row) {
-      this.$refs['form'].handleOpen('edit', row);
+      this.$refs.form.handleOpen('edit', row);
     },
 
     handleSizeChange(val) {

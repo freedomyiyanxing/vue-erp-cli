@@ -23,7 +23,7 @@ module.exports = {
     "import/extensions": [
       ".js",
       ".vue"
-    ]
+    ],
   },
   rules: {
     // 单引号
@@ -38,6 +38,7 @@ module.exports = {
     "import/no-unresolved": 0,
     "import/extensions": 0,
     "import/prefer-default-export": 0,
-    "no-param-reassign": 0,
-  }
+    // "no-param-reassign": 0, // 禁止对参数进行赋值
+    // "no-nested-ternary": 0,
+  },
 }

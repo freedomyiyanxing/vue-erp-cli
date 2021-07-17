@@ -5,11 +5,7 @@
 </template>
 
 <script>
-  export default {
-    name: ""
-  }
+export default {
+  name: 'PurchaseOrderDetails',
+};
 </script>
-
-<style scoped>
-
-</style>

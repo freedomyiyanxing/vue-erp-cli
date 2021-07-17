@@ -1,6 +1,5 @@
 <template>
   <div class="avue-top">
-
     <!--    <div class="top-bar__left">-->
     <!--      <div-->
     <!--        v-if="showCollapse"-->
@@ -12,12 +11,7 @@
     <!--    </div>-->
 
     <div class="top-bar__right">
-      <el-tooltip
-        effect="dark"
-        placement="bottom"
-        v-if="showFullScren"
-        :content="isFullScren ? '退出全屏' : '全屏'"
-      >
+      <el-tooltip effect="dark" placement="bottom" v-if="showFullScren" :content="isFullScren ? '退出全屏' : '全屏'">
         <div class="top-bar__item">
           <i :class="isFullScren ? 'icon-tuichuquanping' : 'icon-quanping'" @click="handleScreen" />
         </div>
@@ -27,7 +21,7 @@
 
       <el-dropdown>
         <span class="el-dropdown-link">
-          {{userInfo.userName}}
+          {{ userInfo.userName }}
           <i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
@@ -44,63 +38,53 @@
   </div>
 </template>
 <script>
-  import { mapGetters, mapState } from "vuex";
-  import { fullscreenToggel, listenfullscreen } from "@/util";
+import { mapGetters, mapState } from 'vuex';
+import { fullscreenToggel, listenfullscreen } from '@/util';
 
-  export default {
-    name: "top",
-    data() {
-      return {};
+export default {
+  name: 'top',
+  data() {
+    return {};
+  },
+  components: {},
+  created() {},
+  mounted() {
+    listenfullscreen(this.setScreen);
+  },
+  computed: {
+    ...mapState({
+      showDebug: (state) => state.common.showDebug,
+      showTheme: (state) => state.common.showTheme,
+      showLock: (state) => state.common.showLock,
+      showFullScren: (state) => state.common.showFullScren,
+      showCollapse: (state) => state.common.showCollapse,
+      showSearch: (state) => state.common.showSearch,
+      showMenu: (state) => state.common.showMenu,
+      showColor: (state) => state.common.showColor,
+    }),
+    ...mapGetters(['userInfo', 'isFullScren', 'tagWel', 'tagList', 'isCollapse', 'tag', 'logsLen', 'logsFlag']),
+  },
+  methods: {
+    handleScreen() {
+      fullscreenToggel();
     },
-    components: {},
-    created() {
+    setCollapse() {
+      this.$store.commit('SET_COLLAPSE');
     },
-    mounted() {
-      listenfullscreen(this.setScreen);
+    setScreen() {
+      this.$store.commit('SET_FULLSCREN');
     },
-    computed: {
-      ...mapState({
-        showDebug: state => state.common.showDebug,
-        showTheme: state => state.common.showTheme,
-        showLock: state => state.common.showLock,
-        showFullScren: state => state.common.showFullScren,
-        showCollapse: state => state.common.showCollapse,
-        showSearch: state => state.common.showSearch,
-        showMenu: state => state.common.showMenu,
-        showColor: state => state.common.showColor
-      }),
-      ...mapGetters([
-        "userInfo",
-        "isFullScren",
-        "tagWel",
-        "tagList",
-        "isCollapse",
-        "tag",
-        "logsLen",
-        "logsFlag"
-      ])
-    },
-    methods: {
-      handleScreen() {
-        fullscreenToggel();
-      },
-      setCollapse() {
-        this.$store.commit("SET_COLLAPSE");
-      },
-      setScreen() {
-        this.$store.commit("SET_FULLSCREN");
-      },
-      logout() {
-        this.$confirm('退出系统, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: "warning"
-        }).then(() => {
-          this.$store.dispatch("LogOut").then(() => {
-            this.$router.push({ path: "/login" });
-          });
+    logout() {
+      this.$confirm('退出系统, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        this.$store.dispatch('LogOut').then(() => {
+          this.$router.push({ path: '/login' });
         });
-      }
-    }
-  };
+      });
+    },
+  },
+};
 </script>

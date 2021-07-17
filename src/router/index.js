@@ -9,17 +9,17 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import store from '@/store/';
-import PageRouter from './page/';
+import PageRouter from './page/index';
 import SHTRouter from './routers';
-import { mockRouters } from "./test-routers";
+import { mockRouters } from './test-routers';
 
-const originalPush = VueRouter.prototype.push
+const originalPush = VueRouter.prototype.push;
 
 VueRouter.prototype.push = function push(location) {
-  return originalPush.call(this, location).catch(err => err);
-}
+  return originalPush.call(this, location).catch((err) => err);
+};
 
-let Router = new VueRouter({
+const Router = new VueRouter({
   routes: PageRouter,
 });
 
