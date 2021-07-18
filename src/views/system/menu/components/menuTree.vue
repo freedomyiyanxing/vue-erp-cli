@@ -8,8 +8,7 @@
     center
     width="25%"
   >
-    <el-input clearable size="mini" style="margin: 15px 0" placeholder="输入关键字进行过滤" v-model="filterText">
-    </el-input>
+    <el-input clearable size="mini" style="margin: 15px 0" placeholder="输入关键字进行过滤" v-model="filterText" />
     <el-tree
       :data="list"
       :filter-node-method="filterNode"

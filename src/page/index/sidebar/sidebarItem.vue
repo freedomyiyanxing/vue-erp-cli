@@ -118,7 +118,8 @@ export default {
       return validateNull(val);
     },
     open(item) {
-      console.log('item====', item, this.screen);
+      // eslint-disable-next-line no-console
+      console.log('item====', item.path, this.screen);
       if (this.screen <= 1) {
         this.$store.commit('SET_COLLAPSE');
       }

@@ -20,14 +20,14 @@ const setRedirect = (isChild, first, path) => {
 };
 
 const setFirstRouter = ({ first, path, oMenu, propsDefault, component, icon, name, meta }) => {
+  // console.log('222==', path);
+
   if (!first) {
     return [];
   }
 
   if (!isURL(path)) {
-    if (oMenu[propsDefault.path]) {
-      oMenu[propsDefault.path] = `${path}/index`;
-    }
+    oMenu[propsDefault.path] = `${path}/index`;
   }
   return [
     {
@@ -50,7 +50,7 @@ function objToForm(obj) {
   return result.join('&');
 }
 
-RouterPlugin.install = function (Vue, router, store) {
+RouterPlugin.install = function install(Vue, router, store) {
   this.$router = router;
   this.$store = store;
 
@@ -162,18 +162,24 @@ RouterPlugin.install = function (Vue, router, store) {
             ? setFirstRouter({ first, path, oMenu, propsDefault, component, icon, name, meta })
             : this.formatRoutes(children, false),
         };
-        // console.log(oRouter);
+        if (!isChild) {
+          // console.log(!isChild);
+          // console.log(oRouter);
+        }
+
         SHTRouter.push(oRouter);
       }
 
       if (first) {
         if (!this.routerList.includes(SHTRouter[0][propsDefault.path])) {
+          console.log(SHTRouter, '===', propsDefault.path);
+          console.log('进来了几次');
           SHTRouter.forEach((i) => this.safe.$router.addRoute(i));
-          this.routerList.push(SHTRouter[0][propsDefault.path]);
+          // this.routerList.push(SHTRouter[0][propsDefault.path]);
         }
       }
-      console.log(SHTRouter, '*************');
-      // return SHTRouter;
+      // console.log(SHTRouter, '*************');
+      return SHTRouter;
     },
   };
 };

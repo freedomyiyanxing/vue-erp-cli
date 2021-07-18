@@ -20,7 +20,6 @@ Vue.config.productionTip = false;
 Vue.use(VueRouter);
 Vue.use(Element);
 Vue.use(VueAxios, axios);
-
 // 注册全局容器
 Vue.component('basicContainer', BasicContainer);
 Vue.component('Pagination', Pagination); // 分页
