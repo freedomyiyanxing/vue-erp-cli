@@ -16,7 +16,6 @@ NProgress.configure({ showSpinner: false });
 /* eslint no-param-reassign: "error" */
 
 router.beforeEach((to, from, next) => {
-  console.log('---------------------');
   if (to.matched.length === 0 && to.fullPath.indexOf('?sec') === -1) {
     next(`${to.path}?sec`);
     window.location.reload();
@@ -80,7 +79,7 @@ router.beforeEach((to, from, next) => {
 });
 
 router.afterEach(() => {
-  console.log('路由，，， router');
+  // console.log('路由，，， router');
   // NProgress.done();
   // let title = store.getters.tag.label;
   // let i18n = store.getters.tag.meta.i18n;
