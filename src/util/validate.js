@@ -75,7 +75,7 @@ export function validateAlphabets(str) {
  * 验证pad还是pc
  * @return {boolean}
  */
-export const validatePc = function () {
+export const validatePc = () => {
   const userAgentInfo = navigator.userAgent;
   const Agents = ['Android', 'iPhone', 'SymbianOS', 'Windows Phone', 'iPad', 'iPod'];
   let flag = true;
@@ -95,7 +95,7 @@ export const validatePc = function () {
  */
 export function validateEmail(emailArg) {
   const re =
-    /^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    /^(([^<>()\\[\].,;:\s@"]+(\.[^<>()\\[\].,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(emailArg);
 }
 

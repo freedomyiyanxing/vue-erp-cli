@@ -1,6 +1,3 @@
-/* eslint-disable global-require */
-/* eslint-disable import/no-dynamic-require  */
-
 import { isURL } from '@/util/validate';
 
 function RouterPlugin() {
@@ -109,7 +106,6 @@ RouterPlugin.install = function install(Vue, router, store) {
 
     // 动态路由
     formatRoutes(menu = [], first) {
-      console.log('---');
       const SHTRouter = [];
       const propsConfig = this.$config.menu.props;
       const propsDefault = {
@@ -147,22 +143,13 @@ RouterPlugin.install = function install(Vue, router, store) {
           component: () => {
             // 判断是否为首路由
             if (first) {
-              // console.log(name);
-              console.log('判断是否为首路由', path);
-              // require(['../page/index'], resolve);
-              // return require(['../page/index'], resolve);
               return import('../page/index');
             }
             // 判断是否为多层路由
             if (isChild && !first) {
-              console.log('判断是否为多层路由', path);
-              // require(['../page/index/layout'], resolve);
-              // return require(['../page/index/layout'], resolve);
               return import('../page/index/layout');
             }
             // 判断是否为最终的页面视图
-            console.log('判断是否为最终的页面视图', path);
-            // return require([`../${component}.vue`], resolve);
             return import(`../${component}.vue`);
           },
           // 处理是否为一级路由
@@ -170,23 +157,16 @@ RouterPlugin.install = function install(Vue, router, store) {
             ? [] // setFirstRouter({ first, path, oMenu, propsDefault, component, icon, name, meta })
             : this.formatRoutes(children, false),
         };
-        if (!isChild) {
-          console.log(!isChild);
-          console.log(oRouter);
-        }
-
         SHTRouter.push(oRouter);
       }
 
       if (first) {
         if (!this.routerList.includes(SHTRouter[0][propsDefault.path])) {
-          console.log(SHTRouter, '===', propsDefault.path);
-          console.log('进来了几次');
           SHTRouter.forEach((i) => this.safe.$router.addRoute(i));
           this.routerList.push(SHTRouter[0][propsDefault.path]);
         }
       }
-      // console.log(SHTRouter, '*************');
+      // eslint-disable-next-line consistent-return
       return SHTRouter;
     },
   };

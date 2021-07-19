@@ -36,8 +36,8 @@ module.exports = {
     'import/no-unresolved': 0, // 忽略别名
     'import/extensions': 0, // 忽略后缀
     'import/prefer-default-export': 0, // 忽略单个export导出
-    // 'no-param-reassign': 0, // 禁止对参数进行赋值
-    // 'no-nested-ternary': 0,
+    'no-param-reassign': 0, // 禁止对参数进行赋值
+    'no-nested-ternary': 0, // 允许嵌套三元表达式
     'no-console': 0, // 忽略console
     'linebreak-style': [0, 'windows'], // 忽略换行符
   },
