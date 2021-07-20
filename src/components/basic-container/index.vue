@@ -1,8 +1,12 @@
+<!--
+ * @Description: 全家容器
+ * @author Freedom.yi
+ * @date 2021/7/19
+ *
+-->
 <template>
   <div class="basic-container">
-    <el-card>
-      <slot></slot>
-    </el-card>
+    <slot></slot>
   </div>
 </template>
 
@@ -14,16 +18,8 @@ export default {
 
 <style lang="scss">
 .basic-container {
-  padding: 10px 6px;
-  border-radius: 10px;
+  padding: 10px;
   box-sizing: border-box;
-
-  .el-card {
-    width: 100%;
-  }
-
-  &:first-child {
-    padding-top: 0;
-  }
+  background: #fff;
 }
 </style>

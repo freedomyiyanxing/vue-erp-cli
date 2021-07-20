@@ -1,10 +1,10 @@
 <!--suppress JSUnusedGlobalSymbols -->
 <template>
-  <div>
+  <basicContainer>
     <h2>34--数据合作供应商</h2>
     <p>{{ index }}</p>
     <button @click="add">点击</button>
-  </div>
+  </basicContainer>
 </template>
 
 <script>

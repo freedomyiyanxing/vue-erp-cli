@@ -1,5 +1,5 @@
 <template>
-  <div>purchase-apply-for</div>
+  <basicContainer>purchase-apply-for</basicContainer>
 </template>
 
 <script>

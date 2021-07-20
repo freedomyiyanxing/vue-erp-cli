@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <basicContainer>
     <h2>34--"库存安全范围"</h2>
     <p>{{ index }}</p>
     <button @click="add">点击</button>
-  </div>
+  </basicContainer>
 </template>
 
 <script>

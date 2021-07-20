@@ -1,11 +1,12 @@
-.avue-left,
-.avue-header,
-.avue-top,
-.avue-logo,
-.avue-layout,
-.login-logo,
-.avue-main {
-  //transition: all .3s;
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+* {
+  outline: none;
+  padding: 0;
+  margin: 0;
 }
 
 .avue-contail {
@@ -16,7 +17,7 @@
 }
 
 
-.avue-left {
+.sht-left {
   position: fixed;
   left: 0;
   top: 0;
@@ -25,45 +26,22 @@
   z-index: 1025;
 }
 
-.avue--collapse {
-  .avue-left,
-  .avue-logo {
-    width: 60px;
-  }
-
-  .avue-header {
-    padding-left: 60px;
-  }
-
-  .avue-main {
-    width: calc(100% - 60px);
-    left: 60px;
-  }
-}
-
-.avue-header {
+.sht-header {
   padding-left: 240px;
-  //width: 100%;
-  //background-color: #fff;
-  //box-sizing: border-box;
   display: flex;
   justify-content: space-between;
 }
 
-.avue-main {
+.sht-main {
   position: absolute;
   left: 240px;
-  padding: 0;
   width: calc(100% - 240px);
-  height: calc(100% - 70px);
+  height: calc(100% - 50px);
   box-sizing: border-box;
   overflow: hidden;
-}
-
-.avue-view {
-  padding-bottom: 22px;
-  width: 100%;
-  box-sizing: border-box;
+  //background: #f5f5f5;
+  background: #d95555;
+  padding: 10px;
 }
 
 .avue-footer {
@@ -101,74 +79,3 @@
     display: block;
   }
 }
-
-//@media screen and (max-width: 992px) {
-//  $width: 240px;
-//  // ele的自适应
-//  .el-dialog,
-//  .el-message-box {
-//    width: 98% !important;
-//  }
-//  //登录页面
-//  .login-left {
-//    display: none !important;
-//  }
-//  .login-logo {
-//    padding-top: 30px !important;
-//    margin-left: -30px;
-//  }
-//  .login-weaper {
-//    margin: 0 auto;
-//    width: 96% !important;
-//  }
-//  .login-border {
-//    border-radius: 5px;
-//    padding: 40px;
-//    margin: 0 auto;
-//    float: none !important;
-//    width: 100% !important;
-//  }
-//  .login-main {
-//    width: 100% !important;
-//  }
-//  //主框架
-//  .avue-tags {
-//    display: none;
-//  }
-//  .avue-left,
-//  .avue-logo {
-//    left: -$width;
-//  }
-//  .avue-main {
-//    left: 0;
-//    width: 100%;
-//  }
-//  .avue-header {
-//    margin-bottom: 15px;
-//    padding-left: 15px;
-//  }
-//  .top-bar__item {
-//    display: none;
-//  }
-//  .avue--collapse {
-//    .avue-left,
-//    .avue-logo {
-//      width: $width;
-//      left: 0;
-//    }
-//
-//    .avue-main {
-//      left: $width;
-//      width: 100%;
-//    }
-//
-//    .avue-header {
-//      padding: 0;
-//      transform: translate3d(230px, 0, 0);
-//    }
-//
-//    .avue-shade {
-//      display: block;
-//    }
-//  }
-//}

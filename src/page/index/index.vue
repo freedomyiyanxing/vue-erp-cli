@@ -6,27 +6,25 @@
 -->
 <template>
   <div>
-    <div class="avue-header">
+    <header class="sht-header">
       <!-- 顶部标签卡 -->
       <tags />
       <!-- 顶部导航栏 -->
       <top />
-    </div>
+    </header>
 
-    <div class="avue-layout">
-      <div class="avue-left">
+    <section class="sht-layout">
+      <div class="sht-left">
         <!-- 左侧导航栏 -->
         <sidebar />
       </div>
-      <div class="avue-main">
+      <div class="sht-main">
         <!-- 主体视图层 -->
         <keep-alive>
-          <router-view class="avue-view" />
+          <router-view />
         </keep-alive>
-        <!-- <router-view class="avue-view" v-if="!$route.meta.keepAlive" />-->
       </div>
-    </div>
-    <!-- <div class="avue-shade" @click="showCollapse">哈哈哈</div>-->
+    </section>
   </div>
 </template>
 

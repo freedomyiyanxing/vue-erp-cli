@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <basicContainer>
     <h2>采购订单详情</h2>
-  </div>
+  </basicContainer>
 </template>
 
 <script>

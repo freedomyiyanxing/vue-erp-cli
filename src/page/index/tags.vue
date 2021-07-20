@@ -7,7 +7,7 @@
       :style="{ left: contentmenuX + 'px', top: contentmenuY + 'px' }"
     >
       <div class="item" @click="closeOthersTags">关闭其它</div>
-      <div class="item" @click="closeAllTags"></div>
+      <div class="item" @click="closeAllTags">关闭所有</div>
     </div>
     <div class="avue-tags__box" :class="{ 'avue-tags__box--close': !config.isFirstPage }">
       <el-tabs
