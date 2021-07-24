@@ -5,66 +5,63 @@ const keyName = `${config.key}-`;
 /**
  * 存储localStorage
  */
-export const setStore = (params = {}) => {
-  // eslint-disable-next-line prefer-const
-  let { name, content, type } = params;
-  name = keyName + name;
+export const setStore = (params = Object.create(null)) => {
+  const { name, content, type } = params;
+  const key = keyName + name;
   const obj = {
     dataType: typeof content,
     content,
     type,
     datetime: new Date().getTime(),
   };
-  if (type) window.sessionStorage.setItem(name, JSON.stringify(obj));
-  else window.localStorage.setItem(name, JSON.stringify(obj));
+  if (type) window.sessionStorage.setItem(key, JSON.stringify(obj));
+  else window.localStorage.setItem(key, JSON.stringify(obj));
 };
+
 /**
  * 获取localStorage
  */
-
 export const getStore = (params = {}) => {
-  // eslint-disable-next-line prefer-const
-  let { name, debug } = params;
-  name = keyName + name;
-  let obj = window.sessionStorage.getItem(name);
-  let content;
+  const { name, debug } = params;
+  const key = keyName + name;
+  let obj = window.sessionStorage.getItem(key);
 
-  if (validateNull(obj)) obj = window.localStorage.getItem(name);
-  if (validateNull(obj)) return;
+  if (validateNull(obj)) {
+    obj = window.localStorage.getItem(key);
+  }
+  if (validateNull(obj)) {
+    return obj;
+  }
   try {
     obj = JSON.parse(obj);
-  } catch {
-    // eslint-disable-next-line consistent-return
+  } catch (e) {
     return obj;
   }
   if (debug) {
-    // eslint-disable-next-line consistent-return
     return obj;
   }
-  if (obj.dataType === 'string') {
-    content = obj.content;
-  } else if (obj.dataType === 'number') {
-    content = Number(obj.content);
-  } else if (obj.dataType === 'boolean') {
-    // eslint-disable-next-line no-eval
-    content = eval(obj.content);
-  } else if (obj.dataType === 'object') {
-    content = obj.content;
+  switch (obj.dataType) {
+    case 'string':
+      return obj.content;
+    case 'number':
+      return Number(obj.content);
+    case 'boolean':
+      return obj.content;
+    default:
+      return obj.content;
   }
-  // eslint-disable-next-line consistent-return
-  return content;
 };
+
 /**
  * 删除localStorage
  */
 export const removeStore = (params = {}) => {
-  // eslint-disable-next-line prefer-const
-  let { name, type } = params;
-  name = keyName + name;
+  const { name, type } = params;
+  const key = keyName + name;
   if (type) {
-    window.sessionStorage.removeItem(name);
+    window.sessionStorage.removeItem(key);
   } else {
-    window.localStorage.removeItem(name);
+    window.localStorage.removeItem(key);
   }
 };
 

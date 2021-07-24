@@ -67,10 +67,11 @@
 
 <script>
 import { getList } from '@/api/system/workflow';
+import Increment from './components/workflow/increment';
 
 export default {
   components: {
-    Increment: () => import('./components/workflow/increment'),
+    Increment,
   },
   name: 'workflow',
   data() {

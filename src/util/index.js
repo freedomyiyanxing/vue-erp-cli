@@ -42,7 +42,7 @@ export const deepClone = (data) => {
     return data;
   }
   if (type === 'array') {
-    for (let i = 0, len = data.length; i < len; i++) {
+    for (let i = 0, len = data.length; i < len; i += 1) {
       obj.push(deepClone(data[i]));
     }
   } else if (type === 'object') {
@@ -95,16 +95,6 @@ export const setTheme = (name) => {
 // };
 
 /**
- * 浏览器判断是否全屏
- */
-export const fullscreenToggel = () => {
-  if (fullscreenEnable()) {
-    exitFullScreen();
-  } else {
-    reqFullScreen();
-  }
-};
-/**
  * esc监听全屏
  */
 export const listenfullscreen = (callback) => {
@@ -112,18 +102,10 @@ export const listenfullscreen = (callback) => {
     callback();
   }
 
-  document.addEventListener('fullscreenchange', function () {
-    listen();
-  });
-  document.addEventListener('mozfullscreenchange', function () {
-    listen();
-  });
-  document.addEventListener('webkitfullscreenchange', function () {
-    listen();
-  });
-  document.addEventListener('msfullscreenchange', function () {
-    listen();
-  });
+  document.addEventListener('fullscreenchange', listen);
+  document.addEventListener('mozfullscreenchange', listen);
+  document.addEventListener('webkitfullscreenchange', listen);
+  document.addEventListener('msfullscreenchange', listen);
 };
 /**
  * 浏览器判断是否全屏
@@ -156,14 +138,15 @@ export const exitFullScreen = () => {
     document.mozCancelFullScreen();
   }
 };
+
 /**
  * 递归寻找子类的父类
  */
 
-export const findParent = (menu, id) => {
-  for (let i = 0; i < menu.length; i++) {
+export function findParent(menu, id) {
+  for (let i = 0; i < menu.length; i += 1) {
     if (menu[i].children.length !== 0) {
-      for (let j = 0; j < menu[i].children.length; j++) {
+      for (let j = 0; j < menu[i].children.length; j += 1) {
         if (menu[i].children[j].id === id) {
           return menu[i];
         }
@@ -173,7 +156,8 @@ export const findParent = (menu, id) => {
       }
     }
   }
-};
+}
+
 /**
  * 判断2个对象属性和值是否相等
  */
@@ -224,7 +208,7 @@ export const diff = (obj1, obj2) => {
  * 根据字典的value查找对应的index
  */
 export const findArray = (dic, value) => {
-  for (let i = 0; i < dic.length; i++) {
+  for (let i = 0; i < dic.length; i += 1) {
     if (dic[i].value === value) {
       return i;
     }
@@ -247,19 +231,19 @@ export const randomLenNum = (len, date) => {
  */
 export const openWindow = (url, title, w, h) => {
   // Fixes dual-screen position                            Most browsers       Firefox
-  const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : screen.left;
-  const dualScreenTop = window.screenTop !== undefined ? window.screenTop : screen.top;
+  const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : window.screen.left;
+  const dualScreenTop = window.screenTop !== undefined ? window.screenTop : window.screen.top;
 
   const width = window.innerWidth
     ? window.innerWidth
     : document.documentElement.clientWidth
     ? document.documentElement.clientWidth
-    : screen.width;
+    : window.screen.width;
   const height = window.innerHeight
     ? window.innerHeight
     : document.documentElement.clientHeight
     ? document.documentElement.clientHeight
-    : screen.height;
+    : window.screen.height;
 
   const left = width / 2 - w / 2 + dualScreenLeft;
   const top = height / 2 - h / 2 + dualScreenTop;
@@ -306,3 +290,14 @@ export function isValidateMobile(phone) {
   list.push(msg);
   return list;
 }
+
+/**
+ * 浏览器判断是否全屏
+ */
+export const fullscreenToggel = () => {
+  if (fullscreenEnable()) {
+    exitFullScreen();
+  } else {
+    reqFullScreen();
+  }
+};

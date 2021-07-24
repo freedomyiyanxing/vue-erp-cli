@@ -68,13 +68,14 @@ import { v4 as uuid } from 'uuid';
 import { mapGetters } from 'vuex';
 import { validateData } from '@/util/validate';
 import { getPurchasePage } from '@/api/oksht-drp/purchase-order';
+import DrpSearchIndex from '@/components/drp-search-comp/index';
 // import XEUtils from "xe-utils";
 
 let searchObjs = Object.create(null);
 export default {
   name: 'inventory-out',
   components: {
-    'drp-search-comp': () => import('@/components/drp-search-comp/index'),
+    'drp-search-comp': DrpSearchIndex,
   },
   computed: {
     ...mapGetters(['dicts', 'tissue', 'userInfo', 'permission']),

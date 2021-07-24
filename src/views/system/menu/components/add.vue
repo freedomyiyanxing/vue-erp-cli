@@ -62,18 +62,20 @@
       <el-button @click="sure" size="mini" type="primary">确 定</el-button>
     </span>
     <Tree @sendData="sendData" ref="tree" />
-    <iconList @sendIcon="sendIcon" ref="iconList" />
+    <IconList @sendIcon="sendIcon" ref="iconList" />
   </el-dialog>
 </template>
 
 <script>
 import { add, getMenu } from '@/api/system/menu';
+import Tree from './menuTree';
+import IconList from './iconList';
 
 export default {
   name: 'MenuAdd',
   components: {
-    Tree: () => import('./menuTree'),
-    iconList: () => import('./iconList'),
+    Tree,
+    IconList,
   },
   data() {
     return {

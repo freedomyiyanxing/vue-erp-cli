@@ -8,12 +8,12 @@ import getters from './getters';
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
+  getters,
   modules: {
     user,
-    common,
     tags,
+    common,
   },
-  getters,
 });
 
 export default store;

@@ -41,10 +41,11 @@
 
 <script>
 import { getList, remove } from '@/api/system/menu';
+import MenuAdd from './components/add';
 
 export default {
   components: {
-    MenuAdd: () => import('./components/add'),
+    MenuAdd,
   },
   name: 'index',
   data() {

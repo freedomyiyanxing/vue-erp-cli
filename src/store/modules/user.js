@@ -29,11 +29,11 @@ function addPath(ele, first) {
 
 const user = {
   state: {
+    roles: [],
+    menuAll: [],
     userInfo: getStore({ name: 'userInfo' }) || [],
     permission: getStore({ name: 'permission' }) || {},
-    roles: [],
     menu: getStore({ name: 'menu' }) || [],
-    menuAll: [],
     token: getStore({ name: 'token' }) || '',
   },
 
