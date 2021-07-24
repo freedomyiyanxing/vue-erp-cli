@@ -7,7 +7,7 @@
 <template>
   <basicContainer>
     <drp-search-comp :searchData="searchData" @searchSubmit="getData">
-      <el-button type="primary" @click="handleAddOrder" size="mini" v-if="permissionList.addBtn">新建订单</el-button>
+      <el-button type="primary" @click="handleAddOrder" size="mini">新建订单</el-button>
     </drp-search-comp>
 
     <el-table
@@ -64,11 +64,11 @@
 </template>
 
 <script>
+import { v4 as uuid } from 'uuid';
 import { mapGetters } from 'vuex';
 import { validateData } from '@/util/validate';
 import { getPurchasePage } from '@/api/oksht-drp/purchase-order';
 // import XEUtils from "xe-utils";
-// import { v4 as uuidv4 } from 'uuid';
 
 let searchObjs = Object.create(null);
 export default {
@@ -139,11 +139,11 @@ export default {
     };
   },
   watch: {
-    async $route() {
-      if (this.$route.name === '采购订单') {
-        await this.getData();
-      }
-    },
+    // async $route() {
+    //   if (this.$route.name === '采购订单') {
+    //     await this.getData();
+    //   }
+    // },
   },
   created() {
     this.getData();
@@ -178,10 +178,10 @@ export default {
 
     // 新增
     handleAddOrder() {
-      // this.$router.push({
-      //   path: '/oksht-drp/purchase-order/increment',
-      //   query: { uuid: uuidv4() }
-      // })
+      this.$router.push({
+        path: '/oksht-drp/purchase-order/add',
+        query: { id: uuid() },
+      });
     },
 
     // 编辑

@@ -1,21 +1,20 @@
 <template>
-  <basicContainer>
-    <h2>采购订单详情</h2>
+  <div>
+    <h1>新增页面</h1>
     <p>{{ name }}</p>
-  </basicContainer>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'PurchaseOrderDetails',
+  name: 'add',
+
   watch: {
-    $route(to, form) {
-      console.log(to.query.id, form);
+    $route(to) {
       this.name = to.query.id;
     },
   },
   data() {
-    console.log(this.$route.query.id);
     return {
       name: this.$route.query.id,
     };

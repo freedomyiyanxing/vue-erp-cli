@@ -32,7 +32,10 @@ export default {
     ...mapGetters(['config', 'menu', 'keyCollapse', 'screen']),
     // 获取激活的导航栏
     nowTagValue() {
-      if (this.$route.path.includes('/oksht-drp/purchase-order/details')) {
+      if (
+        this.$route.path.includes('/oksht-drp/purchase-order/details') ||
+        this.$route.path.includes('/oksht-drp/purchase-order/add')
+      ) {
         console.log(this.$route.path, '---');
         return '/oksht-drp/purchase-order/index';
       }
