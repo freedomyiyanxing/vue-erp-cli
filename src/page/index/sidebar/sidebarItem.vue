@@ -3,46 +3,39 @@
     <template v-for="item in menu">
       <!-- 没有子级路由 -->
       <el-menu-item
-        v-if="validateNull(item[childrenKey]) && validateRoles(item)"
-        :index="item[pathKey]"
+        v-if="validateNull(item[propsDefault.children]) && validateRoles(item)"
+        :index="item[propsDefault.path]"
         @click="open(item)"
-        :key="item[labelKey]"
+        :key="item[propsDefault.label]"
         :class="{ 'is-active': validateActive(item) }"
       >
-        <i :class="item[iconKey]"></i>
-        <span slot="title" :alt="item[pathKey]">
+        <i :class="item[propsDefault.icon]"></i>
+        <span slot="title" :alt="item[propsDefault.path]">
           {{ generateTitle(item) }}
         </span>
       </el-menu-item>
 
       <el-submenu
-        v-else-if="!validateNull(item[childrenKey]) && validateRoles(item)"
-        :index="item[pathKey]"
-        :key="item[labelKey]"
+        v-else-if="!validateNull(item[propsDefault.children]) && validateRoles(item)"
+        :index="item[propsDefault.path]"
+        :key="item[propsDefault.label]"
       >
         <template slot="title">
-          <i :class="item[iconKey]"></i>
-          <span slot="title" :class="{ 'el-menu--display': collapse && first }"> 00 {{ generateTitle(item) }} </span>
+          <i :class="item[propsDefault.icon]"></i>
+          <span slot="title" :class="{ 'el-menu--display': false }"> {{ generateTitle(item) }} </span>
         </template>
-        <template v-for="(child, cIndex) in item[childrenKey]">
+        <template v-for="(child, cIndex) in item[propsDefault.children]">
           <el-menu-item
             @click="open(child)"
-            :index="child[pathKey]"
-            :key="child[labelKey]"
-            v-if="validateNull(child[childrenKey]) && !filterDetailsAdd(child.path)"
+            :index="child[propsDefault.path]"
+            :key="child[propsDefault.label]"
             :class="{ 'is-active': validateActive(child) }"
+            v-if="validateNull(child[propsDefault.children]) && !filterDetailsAdd(child.path)"
           >
-            <i :class="child[iconKey]"></i>
+            <i :class="child[propsDefault.icon]"></i>
             <span slot="title">{{ generateTitle(child) }}</span>
           </el-menu-item>
-          <sidebar-item
-            v-else-if="!filterDetailsAdd(child.path)"
-            :menu="[child]"
-            :key="cIndex"
-            :props="props"
-            :screen="screen"
-            :collapse="collapse"
-          />
+          <sidebar-item v-else-if="!filterDetailsAdd(child.path)" :menu="[child]" :key="cIndex" :props="propsDefault" />
         </template>
       </el-submenu>
     </template>
@@ -51,50 +44,26 @@
 <script>
 import { mapGetters } from 'vuex';
 import { validateNull } from '@/util/validate';
-import config from './config.js';
+import { propsDefault } from '@/config';
 
 export default {
   name: 'sidebarItem',
   data() {
     return {
-      config,
+      propsDefault,
     };
   },
   props: {
     menu: {
       type: Array,
     },
-    screen: {
-      type: Number,
-    },
     first: {
       type: Boolean,
       default: false,
     },
-    props: {
-      type: Object,
-      default: () => {
-        return {};
-      },
-    },
-    collapse: {
-      type: Boolean,
-    },
   },
   computed: {
     ...mapGetters(['roles']),
-    labelKey() {
-      return this.props.label || this.config.propsDefault.label;
-    },
-    pathKey() {
-      return this.props.path || this.config.propsDefault.path;
-    },
-    iconKey() {
-      return this.props.icon || this.config.propsDefault.icon;
-    },
-    childrenKey() {
-      return this.props.children || this.config.propsDefault.children;
-    },
     nowTagValue() {
       return this.$router.$shtRouter.getValue(this.$route);
     },
@@ -105,11 +74,11 @@ export default {
       return path.endsWith('/details') || path.endsWith('/add');
     },
     generateTitle(item) {
-      return item[this.labelKey];
+      return item[this.propsDefault.label];
     },
     validateActive(item) {
       const groupFlag = (item.group || []).some((ele) => this.$route.path.includes(ele));
-      return this.nowTagValue === item[this.pathKey] || groupFlag;
+      return this.nowTagValue === item[this.propsDefault.path] || groupFlag;
     },
     validateRoles(item) {
       return item.meta?.roles ? item.meta.roles.includes(this.roles) : true;
@@ -118,16 +87,13 @@ export default {
       return validateNull(val);
     },
     open(item) {
-      console.log('item====', item.path, this.screen);
-      if (this.screen <= 1) {
-        this.$store.commit('SET_COLLAPSE');
-      }
+      console.log('item====', item.path);
       this.$router.$shtRouter.group = item.group;
       this.$router.$shtRouter.meta = item.meta;
 
       const path = this.$router.$shtRouter.getPath({
-        name: item[this.labelKey],
-        src: item[this.pathKey],
+        name: item[this.propsDefault.label],
+        src: item[this.propsDefault.path],
       });
 
       this.$router.push({

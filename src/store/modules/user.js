@@ -54,7 +54,6 @@ const user = {
             commit('SET_TOKEN', data.accessToken);
             commit('SET_USERIFNO', data);
             commit('DEL_ALL_TAG');
-            commit('CLEAR_LOCK');
             resolve();
           })
           .catch((error) => {
@@ -78,7 +77,6 @@ const user = {
           const { data } = res.data;
           commit('SET_TOKEN', data);
           commit('DEL_ALL_TAG');
-          commit('CLEAR_LOCK');
           resolve();
         });
       });
@@ -119,7 +117,6 @@ const user = {
             commit('SET_MENU', []);
             commit('SET_ROLES', []);
             commit('DEL_ALL_TAG');
-            commit('CLEAR_LOCK');
             removeToken();
             resolve();
           })
@@ -135,7 +132,6 @@ const user = {
         commit('SET_MENU', []);
         commit('SET_ROLES', []);
         commit('DEL_ALL_TAG');
-        commit('CLEAR_LOCK');
         removeToken();
         resolve();
       });

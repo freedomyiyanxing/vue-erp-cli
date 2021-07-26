@@ -1,10 +1,10 @@
 <template>
   <el-form class="login-form" status-icon :rules="loginRules" ref="loginForm" :model="loginForm" label-width="0">
-    <el-form-item v-if="tenantMode" prop="tenantId" style="display: none">
-      <el-input size="small" @keyup.enter.native="handleLogin" v-model="loginForm.tenantId" auto-complete="off">
-        <i slot="prefix" class="icon-quanxian" />
-      </el-input>
-    </el-form-item>
+    <!--    <el-form-item v-if="tenantMode" prop="tenantId" style="display: none">-->
+    <!--      <el-input size="small" @keyup.enter.native="handleLogin" v-model="loginForm.tenantId" auto-complete="off">-->
+    <!--        <i slot="prefix" class="icon-quanxian" />-->
+    <!--      </el-input>-->
+    <!--    </el-form-item>-->
     <el-form-item prop="username">
       <el-input size="small" @keyup.enter.native="handleLogin" v-model="loginForm.username" auto-complete="off">
         <i slot="prefix" class="icon-yonghu" />
@@ -22,7 +22,7 @@
         <i slot="prefix" class="icon-mima"></i>
       </el-input>
     </el-form-item>
-    <el-form-item v-if="captchaMode" prop="code">
+    <el-form-item prop="code">
       <el-row :span="24">
         <el-col :span="16">
           <el-input size="small" @keyup.enter.native="handleLogin" v-model="loginForm.code" auto-complete="off">
@@ -37,21 +37,19 @@
       </el-row>
     </el-form-item>
     <el-form-item>
-      <el-button size="small" type="primary" class="login-submit" @click.native.prevent="handleLogin"> 登录 </el-button>
+      <el-button size="small" type="primary" class="login-submit" @click.native.prevent="handleLogin">登录</el-button>
     </el-form-item>
   </el-form>
 </template>
 
 <script>
-import config from '@/config';
+// import config from '@/config';
 import { getCaptcha } from '@/api/user';
 
 export default {
   name: 'userlogin',
   data() {
     return {
-      tenantMode: config.tenantMode,
-      captchaMode: config.captchaMode,
       loginForm: {
         // 组织ID
         tenantId: '000000',

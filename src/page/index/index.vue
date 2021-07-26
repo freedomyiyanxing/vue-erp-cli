@@ -40,10 +40,5 @@ export default {
     sidebar,
   },
   name: 'index',
-  // methods: {
-  // showCollapse() {
-  //   this.$store.commit("SET_COLLAPSE");
-  // },
-  // }
 };
 </script>

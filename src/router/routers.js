@@ -1,11 +1,12 @@
 import { isURL } from '@/util/validate';
+import { propsDefault } from '@/config';
 
 function RouterPlugin() {
   this.$router = null;
   this.$store = null;
 }
 
-const getPath = ({ first, oMenu, propsDefault }) => {
+const getPath = ({ first, oMenu }) => {
   if (first) {
     return oMenu[propsDefault.path].replace('/index', '');
   }
@@ -107,14 +108,14 @@ RouterPlugin.install = function install(Vue, router, store) {
     // 动态路由
     formatRoutes(menu = [], first) {
       const SHTRouter = [];
-      const propsConfig = this.$config.menu.props;
-      const propsDefault = {
-        label: propsConfig.label || 'name',
-        path: propsConfig.path || 'path',
-        icon: propsConfig.icon || 'icon',
-        children: propsConfig.children || 'children',
-        meta: propsConfig.meta || 'meta',
-      };
+      // const propsConfig = this.$config.menu.props;
+      // const propsDefault = {
+      //   label: propsDefault.label || 'name',
+      //   path: propsDefault.path || 'path',
+      //   icon: propsConfig.icon || 'icon',
+      //   children: propsConfig.children || 'children',
+      //   meta: propsConfig.meta || 'meta',
+      // };
       if (menu.length === 0) return;
 
       for (let i = 0; i < menu.length; i += 1) {

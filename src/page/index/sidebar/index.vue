@@ -2,8 +2,8 @@
   <div class="avue-sidebar">
     <Logo />
     <el-scrollbar style="height: 100%">
-      <el-menu unique-opened mode="vertical" :show-timeout="200" :collapse="keyCollapse" :default-active="nowTagValue">
-        <sidebar-item first :screen="screen" :menu="mockRouters" :props="config.menu.props" :collapse="keyCollapse" />
+      <el-menu unique-opened mode="vertical" :show-timeout="200" :collapse="false" :default-active="nowTagValue">
+        <sidebar-item first :menu="mockRouters" :collapse="false" />
       </el-menu>
     </el-scrollbar>
   </div>
@@ -29,7 +29,7 @@ export default {
     // });
   },
   computed: {
-    ...mapGetters(['config', 'menu', 'keyCollapse', 'screen']),
+    ...mapGetters(['menu']),
     // 获取激活的导航栏
     nowTagValue() {
       if (
