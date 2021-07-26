@@ -3,7 +3,7 @@ import { setStore, getStore } from '@/util/store';
 import { deepClone } from '@/util';
 import { isURL, validateNull } from '@/util/validate';
 import config from '@/config';
-import { loginByUsername, getUserInfo, getMenu, getTopMenu, logout, refeshToken, getButtons } from '@/api/user';
+import { loginByUsername, getUserInfo, getMenu, getTopMenu, refeshToken, getButtons } from '@/api/user';
 
 function addPath(ele, first) {
   const { menu } = config;
@@ -110,19 +110,13 @@ const user = {
     },
     // 登出
     LogOut({ commit }) {
-      return new Promise((resolve, reject) => {
-        logout()
-          .then(() => {
-            commit('SET_TOKEN', '');
-            commit('SET_MENU', []);
-            commit('SET_ROLES', []);
-            commit('DEL_ALL_TAG');
-            removeToken();
-            resolve();
-          })
-          .catch((error) => {
-            reject(error);
-          });
+      return new Promise((resolve) => {
+        commit('SET_TOKEN', '');
+        commit('SET_MENU', []);
+        commit('SET_ROLES', []);
+        commit('DEL_ALL_TAG');
+        removeToken();
+        resolve();
       });
     },
     // 注销session

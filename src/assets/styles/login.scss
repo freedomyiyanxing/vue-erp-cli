@@ -1,164 +1,122 @@
+//重写登录样式 2021/5/18 LiPeiYi
 .login-container {
-  display: flex;
-  align-items: center;
-  position: relative;
   width: 100%;
   height: 100%;
-  margin: 0 auto;
-  background: url("http://www.17sucai.com/preview/242158/2015-01-10/%E7%99%BB%E5%BD%95/images/cloud.jpg")
-    0 bottom repeat-x #049ec4;
-  animation: animate-cloud 20s linear infinite;
-}
-.login-weaper {
-  margin: 0 auto;
-  width: 1000px;
-  box-shadow: -4px 5px 10px rgba(0, 0, 0, 0.4);
-  .el-input-group__append {
-    border: none;
-  }
-}
-
-.login-left,
-.login-border {
-  position: relative;
-  min-height: 500px;
-  align-items: center;
-  display: flex;
-}
-.login-left {
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  justify-content: center;
-  flex-direction: column;
-  background-color: #409EFF;
-  color: #fff;
-  float: left;
-  width: 50%;
-  position: relative;
-}
-.login-left .img {
-  width: 140px;
-}
-.login-time {
-  position: absolute;
-  left: 25px;
-  top: 25px;
-  width: 100%;
-  color: #fff;
-  font-weight: 200;
-  opacity: 0.9;
-  font-size: 18px;
   overflow: hidden;
-}
-.login-left .title {
-  margin-top: 60px;
-  text-align: center;
-  color: #fff;
-  font-weight: 300;
-  letter-spacing: 2px;
-  font-size: 25px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  display: flex;
+
+  * {
+    user-select: none;
+  }
 }
 
-.login-border {
-  border-left: none;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  color: #fff;
-  background-color: #fff;
-  width: 50%;
-  float: left;
-  box-sizing: border-box;
-}
-.login-main {
-  margin: 0 auto;
-  width: 65%;
-  box-sizing: border-box;
-}
-.login-main > h3 {
-  margin-bottom: 20px;
-}
-.login-main > p {
-  color: #76838f;
-}
-.login-title {
-  color: #333;
-  margin-bottom: 40px;
-  font-weight: 500;
-  font-size: 22px;
-  text-align: center;
-  letter-spacing: 4px;
-}
-.login-menu {
-  margin-top: 40px;
-  width: 100%;
-  text-align: center;
-  a {
-    color: #999;
-    font-size: 12px;
-    margin: 0px 8px;
-  }
-}
-.login-submit {
-  width: 100%;
-  height: 45px;
-  border: 1px solid #409EFF;
-  background: none;
-  font-size: 18px;
-  letter-spacing: 2px;
-  font-weight: 300;
-  color: #409EFF;
-  cursor: pointer;
-  margin-top: 30px;
-  font-family: "neo";
-  transition: 0.25s;
-}
-.login-form {
-  margin: 10px 0;
-  i {
-    color: #333;
-  }
-  .el-form-item__content {
-    width: 100%;
-  }
-  .el-form-item {
-    margin-bottom: 12px;
-  }
-  .el-input {
-    input {
-      padding-bottom: 10px;
-      text-indent: 5px;
-      background: transparent;
-      border: none;
-      border-radius: 0;
-      color: #333;
-      border-bottom: 1px solid rgb(235, 237, 242);
-    }
-    .el-input__prefix {
-      i {
-        padding: 0 5px;
-        font-size: 16px !important;
-      }
-    }
-  }
-}
-.login-code {
+.login-left {
+  flex: 0 0 77%;
+  height: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  margin: 0 0 0 10px;
+  justify-content: center;
 }
-.login-code-img {
-  margin-top: 2px;
-  width: 100px;
-  height: 38px;
-  background-color: #fdfdfd;
-  border: 1px solid #f0f0f0;
-  color: #333;
-  font-size: 14px;
-  font-weight: bold;
-  letter-spacing: 5px;
-  line-height: 38px;
-  text-indent: 5px;
-  text-align: center;
-  cursor:pointer!important;
+
+.login-right {
+  flex: 1;
+}
+
+.login-text {
+  position: absolute;
+  bottom: 20px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #bf2722;
+}
+
+.login-main {
+  margin: 14vh 60px 0;
+
+  > img {
+    width: 50px;
+    height: auto;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .login-title {
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 800;
+    color: #000000;
+    margin: 25px 0 15px;
+    letter-spacing: 7px;
+  }
+
+  .login-slogan {
+    position: absolute;
+    bottom: 6vh;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 16px;
+    font-weight: 500;
+    color: #BF2722;
+    margin: 0;
+  }
+}
+
+.login-form {
+  .el-form-item {
+    margin-bottom: 20px;
+  }
+
+  .el-input__inner {
+    height: 40px;
+    line-height: 40px;
+    padding-left: 40px;
+  }
+
+  .icon {
+    margin: 0 8px;
+    font-size: 16px !important;
+  }
+
+  .box {
+    position: relative;
+
+    .login-code {
+      width: 99px;
+      height: 34px;
+      position: absolute;
+      top: 2px;
+      right: 6px;
+    }
+
+    .login-code-img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .login-submit {
+    width: 100%;
+    height: 40px;
+    background-color: #BF2722;
+    border-color: #BF2722;
+    font-size: 14px;
+    letter-spacing: 2px;
+    font-weight: 300;
+    color: #ffffff;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: 0.5s;
+  }
+
+  .login-submit:hover {
+    box-shadow: 2px 3px 10px #c1c1c1;
+  }
 }

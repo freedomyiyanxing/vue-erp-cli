@@ -1,51 +1,33 @@
 <template>
   <div class="login-container">
-    <div class="login-weaper animated bounceInDown">
-      <div class="login-left">
-        <div class="login-time">{{ time }}</div>
-        <img class="img" src="/img/logo.png" alt="sht logo" />
-      </div>
-      <div class="login-border">
-        <div class="login-main">
-          <h4 class="login-title">登录</h4>
-          <userLogin />
-        </div>
+    <div class="login-left">
+      <img class="img" src="/img/login-bg.webp" alt="sht logo" />
+    </div>
+    <div class="login-right">
+      <div class="login-main">
+        <img class="img" src="/img/logo.png" alt="logo" />
+        <h4 class="login-title">火种智能交易系统</h4>
+        <UserLogin />
+        <p class="login-text">信息引领企业数据转化价值</p>
       </div>
     </div>
   </div>
 </template>
 <script>
-import day from 'dayjs';
 import { mapGetters } from 'vuex';
-import userLogin from './userlogin';
+import UserLogin from './userlogin';
 
 export default {
   name: 'login',
   components: {
-    userLogin,
-  },
-  data() {
-    return {
-      time: '',
-    };
-  },
-  created() {
-    this.getTime();
-    setInterval(() => {
-      this.getTime();
-    }, 1000);
+    UserLogin,
   },
   computed: {
     ...mapGetters(['config']),
   },
-  methods: {
-    getTime() {
-      this.time = day().format('YYYY-MM-DD HH:mm:ss');
-    },
-  },
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @import '~@/assets/styles/login.scss';
 </style>

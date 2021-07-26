@@ -13,36 +13,6 @@
         <el-option v-for="item in userInfo.tenantList" :key="item.id" :label="item.tenantName" :value="item.id" />
       </el-select>
       <el-select
-        v-if="item.type === 'supplierType'"
-        size="mini"
-        clearable
-        v-model="searchForm.supplierType"
-        filterable
-        placeholder="请选择供应商类型"
-      >
-        <el-option
-          v-for="item in $store.getters.dicts.supplierType.source"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        />
-      </el-select>
-      <el-select
-        v-if="item.type === 'companyNature'"
-        size="mini"
-        clearable
-        v-model="searchForm.companyNature"
-        filterable
-        placeholder="请选择公司性质"
-      >
-        <el-option
-          v-for="item in $store.getters.dicts.companyNature.source"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        />
-      </el-select>
-      <el-select
         v-if="item.type === 'buyer'"
         size="mini"
         v-model="searchForm.buyerId"
@@ -133,7 +103,7 @@ import { getDepot } from '@/api/oksht-drp/purchase-warehousing';
 export default {
   name: 'drp-search-comp',
   computed: {
-    ...mapGetters(['dicts', 'tissue', 'userInfo']),
+    ...mapGetters(['userInfo']),
   },
   props: {
     searchData: {

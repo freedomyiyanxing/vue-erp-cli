@@ -58,8 +58,6 @@ RouterPlugin.install = function install(Vue, router, store) {
   this.$router.$shtRouter = {
     safe: this,
     routerList: [],
-    // 全局配置
-    $config: this.$store.getters.config,
     meta: Object.create(null),
 
     // 设置标题
@@ -116,13 +114,15 @@ RouterPlugin.install = function install(Vue, router, store) {
       //   children: propsConfig.children || 'children',
       //   meta: propsConfig.meta || 'meta',
       // };
-      if (menu.length === 0) return;
+      if (menu.length === 0) {
+        return [];
+      }
 
       for (let i = 0; i < menu.length; i += 1) {
         const oMenu = menu[i];
 
         if (this.routerList.includes(oMenu[propsDefault.path])) {
-          return;
+          return [];
         }
         const path = getPath({ first, oMenu, propsDefault });
 
@@ -167,7 +167,6 @@ RouterPlugin.install = function install(Vue, router, store) {
           this.routerList.push(SHTRouter[0][propsDefault.path]);
         }
       }
-      // eslint-disable-next-line consistent-return
       return SHTRouter;
     },
   };

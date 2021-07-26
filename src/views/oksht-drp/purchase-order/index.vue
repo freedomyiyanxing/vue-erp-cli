@@ -78,7 +78,7 @@ export default {
     'drp-search-comp': DrpSearchIndex,
   },
   computed: {
-    ...mapGetters(['dicts', 'tissue', 'userInfo', 'permission']),
+    ...mapGetters(['userInfo', 'permission']),
     permissionList() {
       return {
         addBtn: validateData(this.permission.purchase_order_add, false),
